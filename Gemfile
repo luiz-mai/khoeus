@@ -23,7 +23,7 @@ gem 'capybara'
 gem 'cancancan', '~> 2.0'
 gem 'shoulda-matchers', '~> 3.0'
 gem 'rails-controller-testing'
-gem 'pg'
+gem 'puma'
 
 
 group :development, :test do
@@ -38,6 +38,10 @@ group :development do
   gem 'listen',                '3.0.8'
   gem 'spring',                '1.7.2'
   gem 'spring-watcher-listen', '2.0.0'
+end
+
+group :production do
+  gem 'pg', '0.18.4'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
