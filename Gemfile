@@ -19,12 +19,17 @@ gem 'will_paginate',           '3.1.0'
 gem 'bootstrap-will_paginate', '0.0.10'
 gem 'font-awesome-rails'
 gem 'google-webfonts-rails'
+gem 'capybara'
+gem 'cancancan', '~> 2.0'
+gem 'shoulda-matchers', '~> 3.0'
+gem 'rails-controller-testing'
 
 
 group :development, :test do
   gem 'sqlite3'
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
+  gem 'factory_girl_rails'
 end
 
 group :development do
@@ -34,4 +39,4 @@ group :development do
   gem 'spring-watcher-listen', '2.0.0'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :ruby, :jruby]
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

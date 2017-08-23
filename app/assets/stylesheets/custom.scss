@@ -1,0 +1,37 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
+
+.vcenter {
+  display: table;
+  height: 100%;
+  width: 100%;
+  .inner-vcenter {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+.table-row{
+  display: table-row;
+}
+.table-cell{
+  display: table-cell;
+  float: none;
+  &.middle{
+    vertical-align: middle;
+  }
+}

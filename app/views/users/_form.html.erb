@@ -1,0 +1,127 @@
+<%= form_for(user) do |f| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_area :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_area :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cep %>
+    <%= f.text_area :cep %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address %>
+    <%= f.text_area :address %>
+  </div>
+
+  <div class="field">
+    <%= f.label :number %>
+    <%= f.number_field :number %>
+  </div>
+
+  <div class="field">
+    <%= f.label :complement %>
+    <%= f.text_field :complement %>
+  </div>
+
+  <div class="field">
+    <%= f.label :neighborhood %>
+    <%= f.text_area :neighborhood %>
+  </div>
+
+  <div class="field">
+    <%= f.label :city %>
+    <%= f.text_area :city %>
+  </div>
+
+  <div class="field">
+    <%= f.label :state %>
+    <%= f.text_area :state %>
+  </div>
+
+  <div class="field">
+    <%= f.label :country %>
+    <%= f.text_area :country %>
+  </div>
+
+  <div class="field">
+    <%= f.label :photo_name %>
+    <%= f.text_area :photo_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :language %>
+    <%= f.text_area :language %>
+  </div>
+
+  <div class="field">
+    <%= f.label :timezone %>
+    <%= f.text_area :timezone %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_digest %>
+    <%= f.text_area :password_digest %>
+  </div>
+
+  <div class="field">
+    <%= f.label :remember_digest %>
+    <%= f.text_area :remember_digest %>
+  </div>
+
+  <div class="field">
+    <%= f.label :activation_digest %>
+    <%= f.text_area :activation_digest %>
+  </div>
+
+  <div class="field">
+    <%= f.label :reset_digest %>
+    <%= f.text_area :reset_digest %>
+  </div>
+
+  <div class="field">
+    <%= f.label :reset_sent_at %>
+    <%= f.datetime_select :reset_sent_at %>
+  </div>
+
+  <div class="field">
+    <%= f.label :admin %>
+    <%= f.check_box :admin %>
+  </div>
+
+  <div class="field">
+    <%= f.label :confirmed %>
+    <%= f.check_box :confirmed %>
+  </div>
+
+  <div class="field">
+    <%= f.label :confirmed_at %>
+    <%= f.datetime_select :confirmed_at %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_access %>
+    <%= f.datetime_select :last_access %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

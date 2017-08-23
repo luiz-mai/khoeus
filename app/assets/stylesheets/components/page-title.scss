@@ -1,0 +1,21 @@
+.page-title{
+  position: relative;
+  h1{
+    font-family: "Raleway", sans-serif;
+    color: $main-purple;
+    font-size: 30px;
+    font-weight: 800;
+    padding: 25px 25px 25px 33px;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  &:before{
+    content: "";
+    width: 8px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $main-purple;
+  }
+}

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @classroom.name %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @classroom.password %>
+</p>
+
+<p>
+  <strong>Has grades:</strong>
+  <%= @classroom.has_grades %>
+</p>
+
+<p>
+  <strong>Has attendance:</strong>
+  <%= @classroom.has_attendance %>
+</p>
+
+<p>
+  <strong>Minimum grade:</strong>
+  <%= @classroom.minimum_grade %>
+</p>
+
+<%= link_to 'Edit', edit_classroom_path(@classroom) %> |
+<%= link_to 'Back', classrooms_path %>

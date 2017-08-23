@@ -1,0 +1,25 @@
+.btn{
+  width: 130px;
+  font-family: "Raleway", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: $main-purple;
+  color: $white;
+  border-radius: 0;
+  border: none;
+  padding: 8px 0;
+  &:hover{
+    color: $white;
+    background-color: $main-darkpurple;
+    text-decoration: none;
+  }
+  &.btn-inverse{
+    background-color: $white;
+    color: $main-purple;
+    &:hover{
+      background-color: $white;
+      color: $main-darkpurple;
+    }
+  }
+
+}

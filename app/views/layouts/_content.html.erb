@@ -1,0 +1,25 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-md-2 col-sm-3 sidebar">
+      Sidebar
+    </div>
+    <div class="col-xs-12 col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+      <div class="has-sidebar">
+        <section class="page-title card">
+          <div class="row">
+            <div class="col-xs-12">
+              <h1><%= yield(:title) %></h1>
+            </div>
+          </div>
+        </section>
+        <% unless current_page?(root_path) %>
+            <% flash.each do |message_type, message| %>
+                <div class="alert alert-<%= message_type %>"><%= message %></div>
+            <% end %>
+        <% end %>
+        <%= yield %>
+        <%= debug(params) if Rails.env.development? %>
+      </div>
+    </div>
+  </div>
+</div>

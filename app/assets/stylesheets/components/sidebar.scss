@@ -1,0 +1,12 @@
+.sidebar{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background-color: $main-purple;
+  top: 74px;
+}
+
+.has-sidebar{
+  padding: 0 20px;
+}

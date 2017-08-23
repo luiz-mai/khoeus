@@ -1,0 +1,43 @@
+.form-group{
+  label{
+    font-family: "Raleway", sans-serif;
+    font-size: 14px;
+    color: $main-purple;
+    font-weight: 600;
+  }
+  .form-fields{
+    border: solid 1px $main-purple;
+    width: 100%;
+    position: relative;
+    padding: 0 15px 0 55px;
+    i{
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background-color: $main-purple;
+      color: $white;
+      font-size: 24px;
+      padding: 5px 0;
+      z-index: 1;
+      width: 40px;
+      text-align: center;
+    }
+    .form-field{
+      line-height: 34px;
+      border: 0;
+      outline: none;
+      width: 100%;
+      font-size: 14px;
+      font-family: "Roboto", sans-serif;
+    }
+    &.multiple{
+      padding: 7px 15px 0 55px;
+      .form-field{
+        border-bottom: solid 1px $gray-a;
+        margin-bottom: 10px;
+        line-height: 26px;
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+body{
+  background-color: #f3f3f3;
+}
+
+header{
+  padding: 12px 25px;
+  background-color: $white;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  .logo{
+    @media (max-width: $screen-xs-max){
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  }
+  .dropdown{
+    cursor: pointer;
+    .dropdown-toggle{
+      img{
+        border-radius: 50%;
+        margin-right: 15px;
+      }
+      span{
+        color: $gray-8;
+        font-family: "Raleway", sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        margin-right: 5px;
+      }
+      i{
+        color: $gray-8;
+      }
+    }
+  }
+  .menu{
+    position: relative;
+    top: 6px;
+    a:first-child{
+      margin-right: 40px;
+      color: $gray-8;
+      font-family: "Raleway", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      &:hover{
+        text-decoration: none;
+        color: $gray-8;
+      }
+    }
+    @media (max-width: $screen-xs-max){
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  }
+}

@@ -1,14 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Khoeus</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title><%= full_title(yield(:title)) %></title>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag 'application', media: 'all',
+                          'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= google_webfonts_init({
+                               google: ['Roboto Condensed:300,400,700',
+                                        'Roboto:300,400,500,700,900',
+                                        'Raleway:300,400,500,700,800']
+                           }) %>
 
-  <body>
-    <%= yield %>
-  </body>
+  <%= render 'layouts/shim' %>
+  <%= render 'layouts/favicon' %>
+</head>
+<body class="<%= body_class %>">
+<% if current_page?(root_path) %>
+    <div class="container">
+      <%= yield %>
+    </div>
+<% else %>
+    <%= render 'layouts/header' %>
+    <%= render current_page?(signup_path) || current_page?(login_path) || current_page?(password_reset_path) ?
+      'layouts/nosidebar_content' : 'layouts/content' %>
+<% end %>
+<% unless current_page?(root_path) %>
+    <%= render 'layouts/footer' %>
+<% end %>
+</body>
 </html>

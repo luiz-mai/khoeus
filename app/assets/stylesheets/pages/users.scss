@@ -1,0 +1,20 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.users-new{
+  .main-content{
+    > .row{
+      display: table-row;
+      > div{
+        display: table-cell;
+        float: none;
+        &.bg-form-signup{
+          background-image: image-url('bg_form-signup.jpg');
+          background-size: cover;
+          background-position: center;
+        }
+      }
+    }
+
+  }
+}

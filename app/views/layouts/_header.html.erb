@@ -1,0 +1,32 @@
+<header>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-sm-3">
+        <div class="logo">
+          <%= link_to image_tag('logo_header.png'), root_path %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-9 text-right">
+        <% if logged_in? %>
+          <div class="dropdown">
+            <div data-target="#" data-toggle="dropdown" class="dropdown-toggle">
+              <%= gravatar_for current_user, size: 50 %>
+              <%= content_tag(:span, current_user.name )%>
+              <%= fa_icon 'caret-down' %>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><%= link_to 'Ver Perfil', current_user %></li>
+              <li><%= link_to 'Editar Perfil', edit_user_path(current_user) %></li>
+              <li><%= link_to 'Sair', logout_path, method: 'delete' %></li>
+            </ul>
+          </div>
+        <% else %>
+          <div class="menu">
+            <%= link_to('Entrar', login_path) %>
+            <%= link_to('Cadastrar-se', signup_path, "class": 'btn') %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</header>
