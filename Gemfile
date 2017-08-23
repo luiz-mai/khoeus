@@ -23,6 +23,7 @@ gem 'capybara'
 gem 'cancancan', '~> 2.0'
 gem 'shoulda-matchers', '~> 3.0'
 gem 'rails-controller-testing'
+gem 'pg'
 
 
 group :development, :test do
