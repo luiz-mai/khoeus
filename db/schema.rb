@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170821023736) do
+ActiveRecord::Schema.define(version: 20170824223330) do
 
   create_table "classrooms", force: :cascade do |t|
     t.string   "name"
@@ -56,8 +56,12 @@ ActiveRecord::Schema.define(version: 20170821023736) do
     t.boolean  "confirmed"
     t.datetime "confirmed_at"
     t.datetime "last_access"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
 end

@@ -157,7 +157,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :cep, :address, :number, :complement, :neighborhood, :city, :state, :country, :photo_name, :language, :timezone  )
+      params.require(:user).permit(:photo, :name, :email, :password, :password_confirmation, :cep, :address, :number, :complement, :neighborhood, :city, :state, :country, :photo_name, :language, :timezone  )
     end
 
     def check_reset_token_expiration
