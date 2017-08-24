@@ -105,7 +105,7 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.0-x86-mingw32)
       mini_portile2 (~> 2.2.0)
-    pg (0.19.0-x86-mingw32)
+    pg (0.18.4-x86-mingw32)
     public_suffix (2.0.5)
     puma (3.9.1)
     rack (2.0.3)
@@ -225,7 +225,7 @@ DEPENDENCIES
   google-webfonts-rails
   jquery-rails
   listen (= 3.0.8)
-  pg
+  pg (= 0.18.4)
   puma (~> 3.0)
   rack (~> 2.0)
   rails (~> 5.0.5)
