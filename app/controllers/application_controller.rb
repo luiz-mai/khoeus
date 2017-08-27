@@ -9,4 +9,14 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
   end
+
+  def generate_log(action, subject = nil, subject_id = nil, classroom_id = nil, user_id = nil)
+    log = Log.new
+    log.action = action
+    log.subject = subject if subject
+    log.subject_id = subject_id if subject_id
+    log.classroom = Classroom.find_by(id: classroom_id) if classroom_id
+    log.user = user_id ? User.find_by(id: user_id) : current_user
+    ManageLogService.new(log).create
+  end
 end

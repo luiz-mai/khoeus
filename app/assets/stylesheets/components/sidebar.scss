@@ -1,10 +1,57 @@
 .sidebar{
   position: fixed;
-  top: 0;
   bottom: 0;
   left: 0;
   background-color: $main-purple;
   top: 74px;
+  padding: 0;
+
+
+  ul{
+    list-style: none;
+    margin-left: 0;
+    margin-top: 20px;
+    padding: 0;
+    hr{
+      margin: 5px 0 5px 10%;
+      width: 80%;
+      border-top: solid 1px rgba(255,255,255,0.3);
+    }
+    li{
+      position: relative;
+      padding: 15px 0;
+      &.active {
+        background-color: $main-darkpurple;
+        -moz-box-shadow:    inset 0 0 5px rgba(0,0,0,0.5);
+        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+        box-shadow:         inset 0 0 5px rgba(0,0,0,0.5);
+        &:before{
+          content: "";
+          width: 5px;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          background-color: $white;
+        }
+      }
+      i{
+        font-size: 20px;
+        color: $white;
+        position: absolute;
+        left: 30px;
+      }
+      a{
+        padding-left: 70px;
+        font-family: 'Raleway', sans-serif;
+        font-size: 14px;
+        color: $white;
+        &:hover{
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }
 
 .has-sidebar{

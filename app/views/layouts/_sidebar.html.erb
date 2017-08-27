@@ -1,0 +1,49 @@
+<ul>
+  <li class="<%= current_class?(classrooms_path) %>">
+    <%= fa_icon 'graduation-cap' %>
+    <%= link_to 'My Classrooms', classrooms_path %>
+  </li>
+  <li class="<%= current_class?('CHANGE') %>">
+    <%= fa_icon 'envelope' %>
+    <%= link_to 'Messages', root_path %>
+  </li>
+  <% if current_user && current_user.admin? %>
+    <li class="<%= current_class?('CHANGE') %>">
+      <%= fa_icon 'gears' %>
+      <%= link_to 'Configurations', root_path %>
+    </li>
+    <li class="<%= current_class?(logs_path) %>">
+      <%= fa_icon 'list' %>
+      <%= link_to 'Logs', logs_path %>
+    </li>
+  <% end %>
+<% if inside_classroom? %>
+    <hr>
+    <li class="<%= current_class?(classroom_members_path(current_classroom)) %>">
+      <%= fa_icon 'users' %>
+      <%= link_to 'Members', classroom_members_path(current_classroom) %>
+    </li>
+    <li class="<%= current_class?('CHANGE') %>">
+      <%= fa_icon 'check-square' %>
+      <%= link_to 'Attendance List', root_path %>
+    </li>
+    <li class="<%= current_class?('CHANGE') %>">
+      <%= fa_icon 'book' %>
+      <%= link_to 'Gradebook', root_path %>
+    </li>
+    <li class="<%= current_class?('CHANGE') %>">
+      <%= fa_icon 'calendar' %>
+      <%= link_to 'Calendar', root_path %>
+    </li>
+    <% if is_teacher? %>
+          <li class="<%= current_class?(classroom_logs_path(current_classroom)) %>">
+            <%= fa_icon 'list' %>
+            <%= link_to 'Classroom Logs', classroom_logs_path(current_classroom) %>
+          </li>
+          <li class="<%= current_class?('CHANGE') %>">
+            <%= fa_icon 'gear' %>
+            <%= link_to 'Configurations', root_path %>
+          </li>
+    <% end %>
+<% end %>
+</ul>

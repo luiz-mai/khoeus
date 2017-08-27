@@ -12,6 +12,7 @@ class SubscriptionsController < ApplicationController
     if @classroom.authenticate(params[:subscription][:password])
       @subscription = Subscription.new(user_id: current_user.id, classroom_id: @classroom.id, role: 'student')
       if ManageSubscriptionService.new(@subscription).create
+        generate_log('subscribed to', 'Classroom', @classroom.id, @classroom.id)
         redirect_to @subscription.classroom, notice: 'Subscription was successfully created.'
       else
         redirect_to classrooms_url, notice: 'Subscription not created.'

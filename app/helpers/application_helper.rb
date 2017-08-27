@@ -28,4 +28,13 @@ module ApplicationHelper
           end
     end
   end
+
+  def inside_classroom?
+    request.env['PATH_INFO'].match('classrooms/[0-9]+')
+  end
+
+  def current_class?(test_path)
+    return 'active' if request.path == test_path
+    ''
+  end
 end

@@ -23,6 +23,29 @@ RSpec.describe ClassroomsController, type: :controller do
     end
   end
 
+  describe 'GET #members' do
+    context 'when logged out' do
+      it 'redirects to login page' do
+        get :members, params: {classroom_id: classroom.id}
+        expect(response).to redirect_to login_path
+      end
+    end
+    context 'when not a member' do
+      it 'redirects to subscription page' do
+        log_in other_user
+        get :members, params: {classroom_id: classroom.id}
+        expect(response).to redirect_to subscribe_path classroom.id
+      end
+    end
+    context 'when is a member' do
+      it 'returns status 200' do
+        log_in subscription.user
+        get :members, params: {classroom_id: subscription.classroom.id}
+        expect(response).to have_http_status 200
+      end
+    end
+  end
+
   describe 'GET #show' do
     context 'when admin' do
       it 'returns a success response' do
@@ -145,12 +168,12 @@ RSpec.describe ClassroomsController, type: :controller do
   end
 
   describe 'PUT #update' do
-    before(:each){classroom = Classroom.create! attributes_for(:classroom)}
+    before(:each){classroom = Classroom.create attributes_for(:classroom)}
 
     context 'when not admin' do
       it 'returns status 403' do
-        log_in user
-        put :update, params: {id: classroom.id, classroom: attributes_for(:classroom, name: 'New Name')}
+        log_in subscription.user
+        put :update, params: {id: subscription.classroom.id, classroom: attributes_for(:classroom, name: 'New Name')}
         expect(response).to have_http_status 403
       end
     end
@@ -176,7 +199,7 @@ RSpec.describe ClassroomsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    before(:each){classroom = Classroom.create! attributes_for(:classroom)}
+    before(:each){classroom = Classroom.create attributes_for(:classroom)}
 
     context 'when not admin' do
       it 'returns status 403' do
@@ -188,8 +211,8 @@ RSpec.describe ClassroomsController, type: :controller do
 
     context 'when admin user' do
       before(:each) {
-        log_in admin_user
         classroom
+        log_in admin_user
       }
       it 'destroys the requested classroom' do
         expect {

@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
 
-  resources :classrooms
   resources :users
+  resources :classrooms do
+    get '/members', to: 'classrooms#members', as: :members
+    get '/logs', to: 'logs#teacher_index', as: :logs
+  end
 
   root   'pages#home'
+  get   '/logs', to: 'logs#admin_index', as: :logs
   get    '/signup',  to: 'users#new'
   post   '/signup',  to: 'users#create'
   get   '/activate/:token', to: 'users#activate', as: :activate

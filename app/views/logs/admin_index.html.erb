@@ -1,0 +1,10 @@
+<% for log in @logs %>
+  <p>
+    <%= "#{ User.find(log.user).name } has #{log.action}"%>
+    <% if log.subject_id %>
+        <%= log.subject_name %>
+    <% elsif log.subject %>
+        <%= log.subject %>
+    <% end %>
+  </p>
+<% end %>

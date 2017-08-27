@@ -13,11 +13,12 @@ class Ability
       else
         can [:show, :logout], User
         can [:edit, :update], User, :id => user.id
-        can [:index, :show], Classroom
-        can [:edit], Classroom do |classroom|
-          user.subscriptions.where(classroom_id: classroom.id).first.role == 'teacher'
+        can [:index, :show, :members], Classroom
+        can [:edit, :update], Classroom do |classroom|
+          user.subscriptions.find_by(classroom_id: classroom.id).role == 'teacher'
         end
         can [:new, :create], Subscription
+        can [:teacher_index], Log
       end
     end
 

@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  has_many :logs
   has_many :classrooms, through: :subscriptions
   has_many :subscriptions
 
