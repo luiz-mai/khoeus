@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :classrooms do
     get '/members', to: 'classrooms#members', as: :members
     get '/logs', to: 'logs#teacher_index', as: :logs
+    resources :sections, :except => [:index, :show]
   end
 
   root   'pages#home'

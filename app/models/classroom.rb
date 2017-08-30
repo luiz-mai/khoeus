@@ -3,6 +3,7 @@ class Classroom < ApplicationRecord
 
   has_many :subscriptions
   has_many :users, through: :subscriptions
+  has_many :sections
 
   validates :name, presence: true
   validates :password, presence: true

@@ -1,5 +1,4 @@
 class ManageClassroomService
-  include Tokens
 
   def initialize(classroom)
     @classroom = classroom

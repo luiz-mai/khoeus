@@ -5,7 +5,6 @@ class ClassroomsController < ApplicationController
 
   before_action :set_classroom, only: [:show, :members, :edit, :update, :destroy]
   before_action :admin_only, only: [:new, :create, :destroy]
-  before_action :teacher_only, only: [:edit, :update]
   before_action :student_only, only: [:show, :members]
 
   # GET /classrooms
@@ -75,12 +74,6 @@ class ClassroomsController < ApplicationController
 
     def admin_only
       current_user.admin?
-    end
-
-    def teacher_only
-      unless current_user.admin? || current_user.subscriptions.find_by(classroom_id: @classroom.id).role == 'teacher'
-        redirect_to subscribe_path(@classroom.id)
-      end
     end
 
     def student_only

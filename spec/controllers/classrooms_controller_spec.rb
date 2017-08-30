@@ -6,6 +6,7 @@ RSpec.describe ClassroomsController, type: :controller do
   let(:admin_user) {create :admin_user}
   let(:classroom) {create :classroom}
   let(:subscription) {create :subscription}
+  let(:teacher_subscription) {create :teacher_subscription}
 
   describe 'GET #index' do
     context 'when logged in' do
@@ -109,12 +110,9 @@ RSpec.describe ClassroomsController, type: :controller do
       end
     end
     context 'when teacher user' do
-      before(:each) do
-        create :teacher_subscription, user: user, classroom: classroom
-      end
       it 'returns a success response' do
-        log_in user
-        get :edit, params: {id: classroom.id}
+        log_in teacher_subscription.user
+        get :edit, params: { id: teacher_subscription.classroom.id}
         expect(response).to have_http_status 200
       end
     end

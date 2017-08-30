@@ -1,7 +1,7 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(user, current_classroom = nil)
     can [:new, :create,
          :activate,
          :login, :user_login,
@@ -19,6 +19,11 @@ class Ability
         end
         can [:new, :create], Subscription
         can [:teacher_index], Log
+        if (subscription = user.subscriptions.find_by(classroom_id: current_classroom))
+          if subscription.role == 'teacher'
+            can [:new, :edit, :create, :update], Section
+          end
+        end
       end
     end
 

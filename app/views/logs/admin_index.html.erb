@@ -2,7 +2,7 @@
   <p>
     <%= "#{ User.find(log.user).name } has #{log.action}"%>
     <% if log.subject_id %>
-        <%= log.subject_name %>
+        <%= link_to subject_name(log), subject_object(log) %>
     <% elsif log.subject %>
         <%= log.subject %>
     <% end %>

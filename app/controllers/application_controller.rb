@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include UsersHelper
+  include ClassroomsHelper
 
   rescue_from CanCan::AccessDenied do |exception|
     if current_user
@@ -19,4 +20,10 @@ class ApplicationController < ActionController::Base
     log.user = user_id ? User.find_by(id: user_id) : current_user
     ManageLogService.new(log).create
   end
+
+  private
+
+    def current_ability
+      @current_ability ||= Ability.new(current_user, params[:classroom_id])
+    end
 end
