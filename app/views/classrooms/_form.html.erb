@@ -1,42 +1,66 @@
 <%= form_for(classroom) do |f| %>
-  <% if classroom.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(classroom.errors.count, "error") %> prohibited this classroom from being saved:</h2>
+    <% if classroom.errors.any? %>
+        <div id="error_explanation">
+          <div class="alert alert-danger">
+            The form contains <%= pluralize(classroom.errors.count, "error") %>.
+          </div>
+          <ul>
+            <% classroom.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
 
-      <ul>
-      <% classroom.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="form-group">
+      <%= f.label :title, 'Classroom name' %>
+      <div class="form-fields "><%= fa_icon 'font' %>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <%= f.text_field :name, class: 'form-field' %>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+    <div class="form-group">
+      <%= f.label :title, 'Password' %>
+      <div class="form-fields "><%= fa_icon 'lock' %>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <%= f.password_field :password, class: 'form-field' %>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <%= f.check_box :has_grades %>
+          <%= f.label :has_grades, 'Has Grades', class: 'checkbox inline' %>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <%= f.check_box :has_attendance %>
+          <%= f.label :has_attendance, 'Has Attendance', class: 'checkbox inline' %>
+        </div>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :has_grades %>
-    <%= f.check_box :has_grades %>
-  </div>
 
-  <div class="field">
-    <%= f.label :has_attendance %>
-    <%= f.check_box :has_attendance %>
-  </div>
+    <div class="form-group">
+      <%= f.label :minimum_grade, 'Minimum Grade' %>
+      <div class="form-fields "><%= fa_icon 'star' %>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <%= f.number_field :minimum_grade, class: 'form-field' %>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :minimum_grade %>
-    <%= f.text_field :minimum_grade %>
-  </div>
+    <div class="text-right">
+      <%= f.submit yield(:button_text), class: 'btn btn-primary' %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

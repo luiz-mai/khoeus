@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'the user registration', :type => :feature do
+xdescribe 'the user registration', :type => :feature do
   let(:user) {build :user}
 
   context 'when fills the form with valid parameters' do

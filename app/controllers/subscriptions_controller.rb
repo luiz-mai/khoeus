@@ -10,8 +10,7 @@ class SubscriptionsController < ApplicationController
 
   def create
     if @classroom.authenticate(params[:subscription][:password])
-      @subscription = Subscription.new(user_id: current_user.id, classroom_id: @classroom.id, role: 'student')
-      if ManageSubscriptionService.new(@subscription).create
+      if (@subscription = ManageSubscriptionService.new.create(user_id: current_user.id, classroom_id: @classroom.id, role: 'student'))
         generate_log('subscribed to', 'Classroom', @classroom.id, @classroom.id)
         redirect_to @subscription.classroom, notice: 'Subscription was successfully created.'
       else
@@ -26,7 +25,7 @@ class SubscriptionsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_classroom
-    @classroom = Classroom.find(params[:id])
+    @classroom = ManageClassroomService.new.retrieve(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.

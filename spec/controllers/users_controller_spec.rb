@@ -320,7 +320,7 @@ RSpec.describe UsersController, type: :controller do
       end
       it 'redirects to user page' do
         patch :reset_password, params: {token: confirmed_user.reset_token, user: {password: confirmed_user.password + 'aa', password_confirmation: confirmed_user.password + 'aa'}, email: confirmed_user.email}
-        expect(response).to redirect_to confirmed_user
+        expect(response).to redirect_to classrooms_path
       end
     end
   end

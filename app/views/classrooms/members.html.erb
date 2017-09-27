@@ -1,3 +1,7 @@
-<% for user in @members %>
-  <%= user.name %>
-<% end  %>
+<% provide(:title, 'Members') %>
+
+<section class="card content">
+  <% for user in @members %>
+      <%= user.name %>
+  <% end  %>
+</section>

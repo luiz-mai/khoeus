@@ -17,9 +17,12 @@ class SectionsController < ApplicationController
 
   # POST /sections
   def create
-    @section = Section.new(section_params)
-
-    if ManageSectionService.new(@section).create(current_classroom)
+    if (last_section = ManageSectionService.new.retrieve_last_from_classroom(current_classroom))
+      position = last_section.position + 1
+    else
+      position = 1
+    end
+    if ManageSectionService.new.create(section_params.merge!(classroom: current_classroom, position: position ))
       redirect_to @classroom, notice: 'Section was successfully created.'
     else
       render :new
@@ -28,7 +31,7 @@ class SectionsController < ApplicationController
 
   # PATCH/PUT /sections/1
   def update
-    if ManageSectionService.new(@section).edit(section_params)
+    if ManageSectionService.new(@section).update(section_params)
       redirect_to @classroom, notice: 'Section was successfully updated.'
     else
       render :edit
@@ -43,7 +46,7 @@ class SectionsController < ApplicationController
 
   private
     def set_section
-      @section = Section.find(params[:id])
+      @section = ManageSectionService.new.retrieve(params[:id])
     end
 
     def set_classroom

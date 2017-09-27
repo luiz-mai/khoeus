@@ -1,29 +1,23 @@
+<% provide(:title, @classroom.name) %>
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @classroom.name %>
-</p>
-
-<p>
-  <strong>Password:</strong>
-  <%= @classroom.password %>
-</p>
-
-<p>
-  <strong>Has grades:</strong>
-  <%= @classroom.has_grades %>
-</p>
-
-<p>
-  <strong>Has attendance:</strong>
-  <%= @classroom.has_attendance %>
-</p>
-
-<p>
-  <strong>Minimum grade:</strong>
-  <%= @classroom.minimum_grade %>
-</p>
-
-<%= link_to 'Edit', edit_classroom_path(@classroom) %> |
-<%= link_to 'Back', classrooms_path %>
+<section class="card content">
+  <% for section in @sections %>
+      <h3 class="section-title"><%= section.title %></h3>
+      <% for item in items_by_section(section) %>
+          <p class="item-title">
+            <%= link_to item.title, item_path(item) %></p>
+      <% end %>
+      <div class="text-right">
+        <div class="dropdown">
+          <a href="#" data-target="#" data-toggle="dropdown" class="dropdown-toggle btn">Add item</a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li><%= link_to 'Link', new_classroom_link_path(@classroom, section: section.id) %></li>
+            <li><%= link_to 'File', new_classroom_document_path(@classroom, section: section.id) %></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+  <% end %>
+</section>

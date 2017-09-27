@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828002824) do
+ActiveRecord::Schema.define(version: 20170916221651) do
+
+  create_table "board_items", force: :cascade do |t|
+    t.string   "type"
+    t.string   "title"
+    t.text     "description"
+    t.integer  "position"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "uri"
+    t.integer  "file_limit"
+    t.integer  "section_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "document_file_file_name"
+    t.string   "document_file_content_type"
+    t.integer  "document_file_file_size"
+    t.datetime "document_file_updated_at"
+    t.index ["section_id"], name: "index_board_items_on_section_id"
+  end
 
   create_table "classrooms", force: :cascade do |t|
     t.string   "name"
@@ -55,24 +74,23 @@ ActiveRecord::Schema.define(version: 20170828002824) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "password"
-    t.string   "cep"
-    t.string   "address"
+    t.text     "name"
+    t.text     "email"
+    t.text     "cep"
+    t.text     "address"
     t.integer  "number"
-    t.string   "complement"
-    t.string   "neighborhood"
-    t.string   "city"
-    t.string   "state"
-    t.string   "country"
-    t.string   "photo_name"
-    t.string   "language"
-    t.string   "timezone"
-    t.string   "password_digest"
-    t.string   "remember_digest"
-    t.string   "activation_digest"
-    t.string   "reset_digest"
+    t.text     "complement"
+    t.text     "neighborhood"
+    t.text     "city"
+    t.text     "state"
+    t.text     "country"
+    t.text     "photo_name"
+    t.text     "language"
+    t.text     "timezone"
+    t.text     "password_digest"
+    t.text     "remember_digest"
+    t.text     "activation_digest"
+    t.text     "reset_digest"
     t.datetime "reset_sent_at"
     t.boolean  "admin"
     t.boolean  "confirmed"

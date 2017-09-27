@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     get '/members', to: 'classrooms#members', as: :members
     get '/logs', to: 'logs#teacher_index', as: :logs
     resources :sections, :except => [:index, :show]
+    resources :links, :except => [:index, :show]
+    resources :documents, :except => [:index, :show]
+    resources :surveys, :except => [:index, :show]
   end
 
   root   'pages#home'

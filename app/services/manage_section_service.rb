@@ -1,21 +1,21 @@
-class ManageSectionService
-  include ClassroomsHelper
+class ManageSectionService < CrudService
 
-  def initialize(section)
-    @section = section
+  def initialize(section = nil)
+    if section
+      @section = section
+      super('Section', section)
+    else
+      super('Section')
+    end
   end
 
-  def create(classroom)
-    @section.classroom = classroom
-    @section.save
+  def retrieve_from_classroom(classroom)
+    Section.where(classroom: classroom).order(:position)
   end
 
-  def edit(section_params)
-    @section.update_attributes(section_params)
+  def retrieve_last_from_classroom(classroom)
+    Section.where(classroom: classroom).order(:position).last
   end
 
-  def delete
-    @section.destroy
-  end
 
 end

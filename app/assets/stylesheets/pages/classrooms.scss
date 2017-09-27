@@ -1,40 +1,72 @@
 .classrooms-index{
-  .classroom{
-    padding: 20px 20px 25px;
-    position: relative;
-    a:hover{
-      text-decoration: none;
-      color: inherit;
-    }
-    .classroom-title{
-      font-family: "Raleway", sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      color: $main-darkpurple;
-      margin: 0;
-    }
-    .students{
-      font-family: "Raleway", sans-serif;
-      text-transform: uppercase;
-      font-size: 12px;
-      font-weight: 500;
-      color: $main-darkpurple;
-      text-align: center;
-      p{
-        margin: 0;
-        line-height: 1;
-        &.number{
-          font-size: 50px;
-          font-weight: 800;
-          margin-bottom: 5px;
+  .classroom-wrapper{
+    a{
+      .classroom{
+        padding: 20px 20px 25px;
+        position: relative;
+        .classroom-title{
+          font-family: "Raleway", sans-serif;
+          font-size: 15px;
+          font-weight: 600;
+          color: $main-darkpurple;
+          margin: 0;
+        }
+        .students{
+          font-family: "Raleway", sans-serif;
+          text-transform: uppercase;
+          font-size: 12px;
+          font-weight: 500;
+          color: $main-darkpurple;
+          text-align: center;
+          p{
+            margin: 0;
+            line-height: 1;
+            &.number{
+              font-size: 50px;
+              font-weight: 800;
+              margin-bottom: 5px;
+            }
+          }
+        }
+        .dropdown{
+          position: absolute;
+          top: 10px;
+          right: 15px;
+          cursor: pointer;
         }
       }
     }
     .dropdown{
       position: absolute;
-      top: 10px;
-      right: 15px;
+      right: 25px;
+      top: 35px;
       cursor: pointer;
     }
+    &:hover{
+      text-decoration: none;
+      color: inherit;
+      a{
+        text-decoration: none;
+        .classroom{
+          background-color: $main-purple;
+          p, h2{
+            color: $white;
+          }
+        }
+      }
+      i{
+        color: $white;
+      }
+    }
+  }
+}
+
+.classrooms-show{
+  .section-title{
+    font-family: 'Raleway', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: $main-purple;
   }
 }

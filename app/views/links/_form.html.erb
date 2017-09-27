@@ -1,0 +1,34 @@
+<%= form_for(link, url: classroom_links_path) do |f| %>
+  <% if link.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(link.errors.count, "error") %> prohibited this link from being saved:</h2>
+
+      <ul>
+      <% link.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.hidden_field :section_id, value: params[:section] %>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :uri, 'URL' %>
+    <%= f.text_field :uri %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

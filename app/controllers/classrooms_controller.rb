@@ -21,6 +21,8 @@ class ClassroomsController < ApplicationController
   # GET /classrooms/1
   def show
     generate_log('viewed', 'Classroom', @classroom.id, @classroom.id)
+    @sections = ManageSectionService.new.retrieve_from_classroom(@classroom)
+    @items = ManageBoardItemService.new.retrieve_from_classroom(@classroom)
   end
 
   # GET /classrooms/new
@@ -34,9 +36,7 @@ class ClassroomsController < ApplicationController
 
   # POST /classrooms
   def create
-    @classroom = Classroom.new(classroom_params)
-
-    if ManageClassroomService.new(@classroom).create
+    if (@classroom = ManageClassroomService.new.create(classroom_params))
       generate_log('created', 'Classroom', @classroom.id, @classroom.id)
       redirect_to @classroom, notice: 'Classroom was successfully created.'
     else
@@ -46,7 +46,7 @@ class ClassroomsController < ApplicationController
 
   # PATCH/PUT /classrooms/1
   def update
-    if ManageClassroomService.new(@classroom).edit(classroom_params)
+    if ManageClassroomService.new(@classroom).update(classroom_params)
       generate_log('edited', 'Classroom', @classroom.id, @classroom.id)
       redirect_to @classroom, notice: 'Classroom was successfully updated.'
     else
@@ -64,7 +64,8 @@ class ClassroomsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_classroom
-      @classroom = Classroom.find_by(id: params[:id]) ||  Classroom.find_by(id: params[:classroom_id])
+      @classroom = ManageClassroomService.new.retrieve(params[:id]) ||
+          ManageClassroomService.new.retrieve(params[:classroom_id])
     end
 
     # Only allow a trusted parameter "white list" through.

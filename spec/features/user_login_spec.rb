@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'the user login', :type => :feature do
+xdescribe 'the user login', :type => :feature do
   let(:user) {create :user}
   let(:confirmed_user) {create :confirmed_user}
 

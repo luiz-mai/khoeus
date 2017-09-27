@@ -8,7 +8,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 #gem 'jbuilder', '~> 2.5'
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.11', platforms: [:ruby, :x64_mingw, :mingw]
 gem 'paperclip'
 gem 'aws-sdk', '~> 2.3'
 
@@ -19,7 +19,7 @@ gem 'will_paginate',           '3.1.0'
 gem 'bootstrap-will_paginate', '0.0.10'
 gem 'font-awesome-rails'
 gem 'google-webfonts-rails'
-gem 'capybara'
+gem 'capybara', platforms: [:ruby, :x64_mingw, :mingw]
 gem 'cancancan', '~> 2.0'
 gem 'shoulda-matchers', '~> 3.0'
 gem 'rails-controller-testing'

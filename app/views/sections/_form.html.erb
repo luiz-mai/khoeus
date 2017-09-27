@@ -11,8 +11,6 @@
     </div>
   <% end %>
 
-    <%= f.hidden_field :classroom, value: @classroom.id %>
-
   <div class="field">
     <%= f.label :title %>
     <%= f.text_field :title %>
@@ -21,11 +19,6 @@
   <div class="field">
     <%= f.label :description %>
     <%= f.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= f.label :position %>
-    <%= f.number_field :position %>
   </div>
 
   <div class="actions">

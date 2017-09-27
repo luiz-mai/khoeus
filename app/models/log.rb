@@ -5,7 +5,8 @@ class Log < ApplicationRecord
   belongs_to :classroom, optional: true
 
 
-  validates :action, presence: true
+  validates :action,
+            presence: true
 
 
 

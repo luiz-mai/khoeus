@@ -1,5 +1,11 @@
-<h1>Editing Section</h1>
+<% provide(:title, 'Edit Section') %>
 
-<%= render 'form', section: @section %>
 
-<%= link_to 'Back', @classroom %>
+<section class="card content">
+  <h1>Editing Section</h1>
+
+  <%= render 'form', section: @section %>
+
+  <%= link_to 'Back', @classroom %>
+</section>
+

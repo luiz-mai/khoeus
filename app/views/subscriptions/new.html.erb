@@ -1,5 +1,10 @@
-<h1>New Subscription</h1>
+<% provide(:title, 'Subscribe') %>
 
-<%= render 'form', subscription: @subscription %>
+<section class="card main-content">
+  <h1>New Subscription</h1>
 
-<%= link_to 'Back', classrooms_path %>
+  <%= render 'form', subscription: @subscription %>
+
+  <%= link_to 'Back', classrooms_path %>
+</section>
+

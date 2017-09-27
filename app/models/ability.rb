@@ -22,6 +22,8 @@ class Ability
         if (subscription = user.subscriptions.find_by(classroom_id: current_classroom))
           if subscription.role == 'teacher'
             can [:new, :edit, :create, :update], Section
+            can [:new, :edit, :create, :update], Link
+            can [:new, :edit, :create, :update], Document
           end
         end
       end

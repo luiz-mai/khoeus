@@ -32,8 +32,7 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.create(user_params)
-    if ManageUserService.new(@user).signup
+    if (@user = ManageUserService.new.create(user_params))
       flash[:info] = 'Please, check your email to activate your account.'
       generate_log('created an account', nil, nil, nil, @user.id)
       redirect_to login_path
@@ -44,7 +43,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if ManageUserService.new(@user).edit_profile(user_params)
+    if ManageUserService.new(@user).update(user_params)
       flash[:success] = 'Profile updated'
       generate_log('edited his account')
       current_user.admin? ? redirect_to(users_path) : redirect_to(@user)
@@ -63,7 +62,7 @@ class UsersController < ApplicationController
 
   # GET /activate/1
   def activate
-    @user = User.find_by(email: params[:email])
+    @user = ManageUserService.new.retrieve_by_email(email: params[:email])
     if @user && !@user.confirmed? && Tokens.digest_match(@user, :activation, params[:token])
       ManageUserService.new(@user).activate
       generate_log('activated his account', nil, nil, nil, @user.id)
@@ -85,7 +84,7 @@ class UsersController < ApplicationController
 
   # POST /login
   def user_login
-    @user = User.find_by(email: params[:login][:email].downcase)
+    @user = ManageUserService.new.retrieve_by_email(params[:login][:email].downcase)
     if @user && @user.authenticate(params[:login][:password])
       if @user.confirmed?
         session[:user_id] = @user.id
@@ -128,7 +127,7 @@ class UsersController < ApplicationController
   end
 
   def send_new_password
-    @user = User.find_by(email: params[:user][:email].downcase)
+    @user = ManageUserService.new.retrieve_by_email(params[:user][:email].downcase)
     if @user
       ManageUserService.new(@user).send_password_reset_email
       flash[:info] = 'Email sent with password reset instructions'
@@ -151,7 +150,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       generate_log('reseted his password', nil, nil, nil, @user.id)
       flash[:success] = 'Password has been reset.'
-      redirect_to @user
+      redirect_to classrooms_path
     else
       render :choose_password
     end
@@ -159,11 +158,11 @@ class UsersController < ApplicationController
 
   private
     def set_user
-      @user = User.find(params[:id])
+      @user = ManageUserService.new.retrieve(params[:id])
     end
 
     def set_user_by_email
-      @user = User.find_by(email: params[:email])
+      @user = ManageUserService.new.retrieve_by_email(params[:email])
     end
 
     def user_params

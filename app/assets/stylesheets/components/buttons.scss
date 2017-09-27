@@ -8,10 +8,15 @@
   border-radius: 0;
   border: none;
   padding: 8px 0;
+  position: relative;
+  border-bottom: solid 4px $main-darkpurple;
   &:hover{
     color: $white;
     background-color: $main-darkpurple;
     text-decoration: none;
+    border-bottom: solid 2px $main-darkpurple;
+    top: 2px;
+    margin-bottom: 2px;
   }
   &.btn-inverse{
     background-color: $white;
