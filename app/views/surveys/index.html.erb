@@ -1,0 +1,7 @@
+<% provide(:title, 'Turmas') %>
+
+<div class="row">
+  <% @surveys.each do |survey| %>
+      <p><%= survey.title %></p>
+  <% end %>
+</div>

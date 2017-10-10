@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170916221651) do
+ActiveRecord::Schema.define(version: 20171008191709) do
 
   create_table "board_items", force: :cascade do |t|
     t.string   "type"
@@ -73,24 +73,42 @@ ActiveRecord::Schema.define(version: 20170916221651) do
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
+  create_table "survey_answers", force: :cascade do |t|
+    t.string   "answer"
+    t.integer  "survey_question_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["survey_question_id"], name: "index_survey_answers_on_survey_question_id"
+  end
+
+  create_table "survey_questions", force: :cascade do |t|
+    t.string   "question"
+    t.boolean  "required"
+    t.integer  "survey_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["survey_id"], name: "index_survey_questions_on_survey_id"
+  end
+
   create_table "users", force: :cascade do |t|
-    t.text     "name"
-    t.text     "email"
-    t.text     "cep"
-    t.text     "address"
+    t.string   "name"
+    t.string   "email"
+    t.string   "password"
+    t.string   "cep"
+    t.string   "address"
     t.integer  "number"
-    t.text     "complement"
-    t.text     "neighborhood"
-    t.text     "city"
-    t.text     "state"
-    t.text     "country"
-    t.text     "photo_name"
-    t.text     "language"
-    t.text     "timezone"
-    t.text     "password_digest"
-    t.text     "remember_digest"
-    t.text     "activation_digest"
-    t.text     "reset_digest"
+    t.string   "complement"
+    t.string   "neighborhood"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.string   "photo_name"
+    t.string   "language"
+    t.string   "timezone"
+    t.string   "password_digest"
+    t.string   "remember_digest"
+    t.string   "activation_digest"
+    t.string   "reset_digest"
     t.datetime "reset_sent_at"
     t.boolean  "admin"
     t.boolean  "confirmed"

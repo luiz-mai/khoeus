@@ -8,8 +8,8 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 #gem 'jbuilder', '~> 2.5'
-gem 'bcrypt', '~> 3.1.11', platforms: [:ruby, :x64_mingw, :mingw]
 gem 'paperclip'
+gem 'bcrypt', '~> 3.1.11'
 gem 'aws-sdk', '~> 2.3'
 
 gem 'bootstrap-sass', '3.3.6'
@@ -23,6 +23,7 @@ gem 'capybara', platforms: [:ruby, :x64_mingw, :mingw]
 gem 'cancancan', '~> 2.0'
 gem 'shoulda-matchers', '~> 3.0'
 gem 'rails-controller-testing'
+gem 'nested_form_fields'
 
 
 group :development, :test do

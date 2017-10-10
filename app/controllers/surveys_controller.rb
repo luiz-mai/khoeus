@@ -6,9 +6,16 @@ class SurveysController < ApplicationController
 
   load_and_authorize_resource :survey
 
+  # GET /sections/1
+  def show
+    generate_log('viewed', 'Survey', @survey.id, @classroom.id)
+  end
+
   # GET /sections/new
   def new
     @survey = Survey.new
+    @survey_question = @survey.survey_questions.build
+    @survey_question.survey_answers.build
   end
 
   # GET /sections/1/edit
@@ -57,7 +64,7 @@ class SurveysController < ApplicationController
     @section = ManageSectionService.new.retrieve(params[:survey][:section_id])
   end
 
-  def link_params
-    params.require(:survey).permit(:title, :description, :start_time, :end_time, :section_id)
+  def survey_params
+    params.require(:survey).permit(:title, :description, :start_time, :end_time, :section_id, :survey_questions_attributes => [:id, :question, :required, :_destroy, :survey_answers_attrinutes => [:answerm, :_destroy]])
   end
 end

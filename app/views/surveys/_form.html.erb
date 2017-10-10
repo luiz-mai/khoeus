@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-    <%= f.hidden_field :section_id, value: params[:section] %>
+  <%= f.hidden_field :section_id, value: params[:section] %>
 
   <div class="field">
     <%= f.label :title %>
@@ -23,15 +23,33 @@
     <%= f.text_area :description %>
   </div>
 
-  <div class="field">
-    <%= f.label :start_time, 'Start' %>
-    <%= f.time_select :start_time %>
-  </div>
+    <%= f.nested_fields_for :survey_questions do |question_form| %>
+        <%= question_form.remove_nested_fields_link %>
+        <div>
+          <%= question_form.label :question %>
+          <%= question_form.text_field :question %>
+        </div>
 
-  <div class="field">
-    <%= f.label :end_time, 'End' %>
-    <%= f.time_select :end_time %>
-  </div>
+        <div>
+          <%= question_form.check_box :required %>
+          <%= question_form.label :required, class: 'checkbox inline' %>
+        </div>
+
+        <%= question_form.nested_fields_for :survey_answers do |answers_form| %>
+            <%= answers_form.remove_nested_fields_link %>
+            <div>
+              <%= answers_form.label :answer %>
+              <%= answers_form.text_field :answer %>
+            </div>
+        <% end %>
+
+
+        <%= question_form.add_nested_fields_link :survey_answers  %>
+
+
+    <% end %>
+
+    <%= f.add_nested_fields_link :survey_questions  %>
 
   <div class="actions">
     <%= f.submit %>

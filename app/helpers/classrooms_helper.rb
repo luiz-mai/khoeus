@@ -19,6 +19,25 @@ module ClassroomsHelper
         classroom_link_path(@classroom, item.id)
       when 'Document'
         classroom_document_path(@classroom, item.id)
+      when 'Survey'
+        classroom_survey_path(@classroom, item.id)
+    end
+  end
+
+  def item_icon(item)
+    case item.type
+      when 'Link'
+        fa_icon 'link'
+      when 'Document'
+        fa_icon 'file'
+      when 'Survey'
+        fa_icon 'comment'
+      when 'Test'
+        fa_icon 'pencil'
+      when 'Assignment'
+        fa_icon 'code'
+      when 'ExternalActivity'
+        fa_icon 'book'
     end
   end
 end
