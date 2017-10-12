@@ -1,5 +1,25 @@
-<% provide(:title, @classroom.name) %>
+<% provide(:title, @survey.title) %>
 
-<p id="notice"><%= notice %></p>
-
-<%= survey.title %>
+<section class="card content">
+  <% if is_teacher? %>
+    a
+  <% else %>
+    <%= form_for(@survey, url: classroom_survey_answer_path(@classroom, @survey), method: :post) do |survey_form| %>
+      <p><%= @survey.description %></p>
+      <p>Deadline: <%= @survey.end_time %></p>
+      <% @survey.survey_questions.each_with_index do |question, index| %>
+          <h2>Question #<%= index %></h2>
+          <p><%= question.question %></p>
+          <% question.survey_answers.each_with_index do |answer, index| %>
+              <%= survey_form.fields_for answer, index: question.id do |answer_form| %>
+                <%= answer_form.radio_button :chosen_answer, answer.id %>
+                <%= answer_form.label :chosen_answer, answer.answer %>
+              <% end %>
+          <% end %>
+      <% end %>
+      <div class="text-right">
+        <%= survey_form.submit 'Answer Survey', class: 'btn' %>
+      </div>
+    <% end %>
+  <% end %>
+</section>

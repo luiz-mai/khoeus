@@ -31,6 +31,19 @@
       font-size: 14px;
       font-family: "Roboto", sans-serif;
     }
+    .remove_nested_fields_link{
+      position: absolute;
+      top: 6px;
+      right: 15px;
+      font-size: 16px;
+      font-family: 'Raleway', sans-serif;
+      color: $main-purple;
+      font-weight: 700;
+      &:hover, &:active, &:focus{
+        text-decoration: none;
+        color: $main-purple;
+      }
+    }
     &.multiple{
       padding: 7px 15px 0 55px;
       .form-field{

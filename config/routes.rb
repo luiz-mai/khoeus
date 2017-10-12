@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     resources :sections, :except => [:index, :show]
     resources :links, :except => [:index, :show]
     resources :documents, :except => [:index, :show]
-    resources :surveys, :except => [:index]
+    resources :surveys, :except => [:index] do
+      post '/answer', to: 'surveys#answer', as: :answer
+    end
   end
 
   root   'pages#home'

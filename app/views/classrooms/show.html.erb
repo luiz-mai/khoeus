@@ -1,15 +1,41 @@
 <% provide(:title, @classroom.name) %>
 
-<p id="notice"><%= notice %></p>
-
 <section class="card content">
   <% for section in @sections %>
-      <h3 class="section-title"><%= section.title %></h3>
+      <div class="dropdown section-options">
+        <%= link_to (fa_icon 'caret-down'), 'javascript:;', :data => { toggle: 'dropdown', target: '#' } %>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li><%= link_to 'Edit section', edit_classroom_section_path(@classroom, section) %></li>
+          <li><%= link_to 'Delete section', classroom_section_path(@classroom, section),
+                          data: {:confirm => 'Are you sure?'}, :method => :delete %></li>
+        </ul>
+      </div>
+      <div class="section-title">
+        <h3><%= section.title %></h3>
+        <% if section.description %>
+            <p class="section-description"><%= section.description %></p>
+        <% end %>
+      </div>
       <% for item in items_by_section(section) %>
-          <p class="item-title">
-            <%= item_icon(item) %>
-            <%= link_to '[' + item.type.upcase + '] ' + item.title, item_path(item) %>
-          </p>
+          <div class="item">
+            <div class="dropdown item-options">
+              <%= link_to (fa_icon 'caret-down'), 'javascript:;', :data => { toggle: 'dropdown', target: '#' } %>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><%= link_to 'Edit', [:edit, @classroom, item] %></li>
+                <li><%= link_to 'Delete', [@classroom, item],
+                                data: {:confirm => 'Are you sure?'}, :method => :delete %></li>
+              </ul>
+            </div>
+            <div class="item-title">
+              <span class="item-type item-<%= item.type.downcase %>"><%= item.type %></span>
+              <%= link_to item.title, item_path(item) %>
+            </div>
+            <% if item.description %>
+                <p class="item-description">
+                  <%= item.description %>
+                </p>
+            <% end %>
+          </div>
       <% end %>
       <div class="text-right">
         <div class="dropdown">
@@ -23,4 +49,7 @@
       </div>
       <hr>
   <% end %>
+  <div class="text-right">
+    <%= link_to 'Add section', new_classroom_section_path(@classroom), class: 'btn' %>
+  </div>
 </section>

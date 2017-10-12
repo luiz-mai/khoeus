@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :logs
   has_many :classrooms, through: :subscriptions
   has_many :subscriptions
+  has_many :survey_responses
 
   has_attached_file :photo
 

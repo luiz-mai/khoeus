@@ -1,10 +1,10 @@
-<%= form_for(survey, url: classroom_surveys_path) do |f| %>
-  <% if survey.errors.any? %>
+<%= form_for [current_classroom, @survey] do |f| %>
+  <% if @survey.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
+      <h2><%= pluralize(@survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
 
       <ul>
-      <% survey.errors.full_messages.each do |message| %>
+      <% @survey.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -13,21 +13,69 @@
 
   <%= f.hidden_field :section_id, value: params[:section] %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :title %>
-    <%= f.text_field :title %>
+    <div class="form-fields ">
+      <%= fa_icon 'font' %>
+      <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <%= f.text_field :title, class: 'form-field' %>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :description %>
-    <%= f.text_area :description %>
+    <div class="form-fields ">
+      <%= fa_icon 'align-left' %>
+      <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <%= f.text_area :description, class: 'form-field' %>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <div class="form-group">
+    <%= f.label :start_time %>
+    <div class="form-fields ">
+      <%= fa_icon 'font' %>
+      <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <%= f.datetime_select :start_time, class: 'form-field', include_blank: true %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :end_time %>
+    <div class="form-fields ">
+      <%= fa_icon 'align-left' %>
+      <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <%= f.datetime_select :end_time, class: 'form-field' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <hr>
 
     <%= f.nested_fields_for :survey_questions do |question_form| %>
-        <%= question_form.remove_nested_fields_link %>
-        <div>
+
+        <div class="form-group">
           <%= question_form.label :question %>
-          <%= question_form.text_field :question %>
+          <div class="form-fields ">
+            <%= fa_icon 'question' %>
+            <div class="row">
+              <div class="col-xs-12 col-md-12">
+                <%= question_form.text_field :question, class: 'form-field' %>
+                <%= question_form.remove_nested_fields_link %>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div>
@@ -36,22 +84,35 @@
         </div>
 
         <%= question_form.nested_fields_for :survey_answers do |answers_form| %>
-            <%= answers_form.remove_nested_fields_link %>
-            <div>
+
+            <div class="form-group">
               <%= answers_form.label :answer %>
-              <%= answers_form.text_field :answer %>
+              <div class="form-fields ">
+                <%= fa_icon 'list-ol' %>
+                <div class="row">
+                  <div class="col-xs-12 col-md-12">
+                    <%= answers_form.text_field :answer, class: 'form-field' %>
+                    <%= answers_form.remove_nested_fields_link %>
+                  </div>
+                </div>
+              </div>
             </div>
+
         <% end %>
 
+        <div class="text-right">
+          <%= question_form.add_nested_fields_link :survey_answers, 'Add answer', class: 'btn'  %>
+        </div>
 
-        <%= question_form.add_nested_fields_link :survey_answers  %>
-
+        <hr>
 
     <% end %>
 
-    <%= f.add_nested_fields_link :survey_questions  %>
+    <div class="text-right">
+      <%= f.add_nested_fields_link :survey_questions, 'Add question', class: 'btn'  %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="text-right">
+    <%= f.submit class: 'btn' %>
   </div>
 <% end %>

@@ -1,34 +1,55 @@
-<%= form_for(link, url: classroom_links_path) do |f| %>
-  <% if link.errors.any? %>
+<%= form_for [current_classroom, @link] do |f| %>
+  <% if @link.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(link.errors.count, "error") %> prohibited this link from being saved:</h2>
+      <h2><%= pluralize(@link.errors.count, "error") %> prohibited this link from being saved:</h2>
 
       <ul>
-      <% link.errors.full_messages.each do |message| %>
+      <% @link.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-    <%= f.hidden_field :section_id, value: params[:section] %>
+  <%= f.hidden_field :section_id, value: params[:section] %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :title %>
-    <%= f.text_field :title %>
+    <div class="form-fields ">
+      <%= fa_icon 'font' %>
+      <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <%= f.text_field :title, class: 'form-field' %>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :description %>
-    <%= f.text_area :description %>
+    <div class="form-fields ">
+      <%= fa_icon 'align-left' %>
+      <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <%= f.text_area :description, class: 'form-field' %>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :uri, 'URL' %>
-    <%= f.text_field :uri %>
+  <div class="form-group">
+    <%= f.label :uri %>
+    <div class="form-fields ">
+      <%= fa_icon 'link' %>
+      <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <%= f.text_field :uri, class: 'form-field' %>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="text-right">
+    <%= f.submit class: 'btn' %>
   </div>
 <% end %>

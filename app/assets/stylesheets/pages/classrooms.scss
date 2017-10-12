@@ -62,11 +62,67 @@
 }
 
 .classrooms-show{
+  .section-options{
+    position: absolute;
+    right: 50px;
+    a{
+      color: $gray-light;
+    }
+  }
   .section-title{
-    font-family: 'Raleway', sans-serif;
-    font-size: 24px;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: $main-purple;
+    margin-bottom: 20px;
+    h3{
+      font-family: 'Raleway', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: $main-purple;
+    }
+    .section-description{
+      font-family: 'Raleway', sans-serif;
+      font-weight: 500;
+      color: $gray-light;
+    }
+  }
+  .item{
+    position: relative;
+    .item-options{
+      position: absolute;
+      right: 50px;
+      a{
+        color: $gray-light;
+      }
+    }
+    .item-title{
+      .item-type{
+        border-bottom-left-radius: 1000px;
+        border-top-left-radius: 1000px;
+        padding: 4px 15px;
+        min-width: 130px;
+        display: inline-block;
+        color: white;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-family: 'Raleway', sans-serif;
+
+        &.item-link{background-color: #2ecc71;}
+        &.item-document{background-color: #f1c40f;}
+        &.item-survey{background-color: #1abc9c;}
+        &.item-test{background-color: #9b59b6;}
+        &.item-assignment{background-color: #3498db;}
+        &.item-externalactivity{background-color: #e67e22;}
+      }
+      a{
+        display: inline-block;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 600;
+        color: $gray;
+        padding-left: 10px;
+      }
+    }
+    .item-description{
+      padding-left: 145px;
+      color: $gray-light;
+    }
   }
 }

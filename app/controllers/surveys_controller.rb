@@ -1,6 +1,6 @@
 class SurveysController < ApplicationController
   include ClassroomsHelper
-  before_action :set_survey, only: [:edit, :update, :destroy]
+  before_action :set_survey, only: [:edit, :update, :destroy, :answer]
   before_action :set_classroom
   before_action :set_section, only: [:create]
 
@@ -51,6 +51,14 @@ class SurveysController < ApplicationController
     redirect_to @classroom, notice: 'Survey was successfully destroyed.'
   end
 
+  def answer
+    params[:survey][:survey_answer].each do |key, value|
+      response_params = {:user_id => current_user.id, :survey_answer_id => value['chosen_answer']}
+      ManageSurveyResponseService.new.create(response_params)
+    end
+    redirect_to @classroom, notice: 'Survey was successfully answered.'
+  end
+
   private
   def set_survey
     @survey = ManageSurveyService.new.retrieve(params[:id])
@@ -65,6 +73,7 @@ class SurveysController < ApplicationController
   end
 
   def survey_params
-    params.require(:survey).permit(:title, :description, :start_time, :end_time, :section_id, :survey_questions_attributes => [:id, :question, :required, :_destroy, :survey_answers_attrinutes => [:answerm, :_destroy]])
+    params.require(:survey).permit(:title, :description, :start_time, :end_time, :section_id, :chosen_answer, :survey_questions_attributes => [:id, :question, :required, :_destroy, :survey_answers_attributes => [:answer, :_destroy]])
   end
+
 end
