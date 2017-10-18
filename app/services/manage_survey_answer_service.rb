@@ -9,4 +9,8 @@ class ManageSurveyAnswerService < CrudService
     end
   end
 
+  def retrieve_responses
+    retrieve(@survey_answer.id).survey_responses
+  end
+
 end

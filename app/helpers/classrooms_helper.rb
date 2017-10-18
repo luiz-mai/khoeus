@@ -21,6 +21,8 @@ module ClassroomsHelper
         classroom_document_path(@classroom, item.id)
       when 'Survey'
         classroom_survey_path(@classroom, item.id)
+      when 'Test'
+        classroom_test_path(@classroom, item.id)
     end
   end
 

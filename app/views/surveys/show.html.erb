@@ -2,24 +2,56 @@
 
 <section class="card content">
   <% if is_teacher? %>
-    a
-  <% else %>
-    <%= form_for(@survey, url: classroom_survey_answer_path(@classroom, @survey), method: :post) do |survey_form| %>
-      <p><%= @survey.description %></p>
-      <p>Deadline: <%= @survey.end_time %></p>
-      <% @survey.survey_questions.each_with_index do |question, index| %>
-          <h2>Question #<%= index %></h2>
-          <p><%= question.question %></p>
-          <% question.survey_answers.each_with_index do |answer, index| %>
-              <%= survey_form.fields_for answer, index: question.id do |answer_form| %>
-                <%= answer_form.radio_button :chosen_answer, answer.id %>
-                <%= answer_form.label :chosen_answer, answer.answer %>
+      <div class="survey-summary">
+        <% @survey.survey_questions.each_with_index do |question, index| %>
+            <p class="question-title">
+              <span>Question #<%= index + 1 %></span>
+              <%= question.question %>
+            </p>
+            <div class="answers">
+              <% question.survey_answers.each do |answer| %>
+                  <p>
+                    <span><%= answer_percentage(question, answer) %></span>
+                    <%= answer.answer %>
+                  </p>
               <% end %>
+            </div>
+            <hr>
+        <% end %>
+      </div>
+  <% else %>
+      <% if @survey.end_time.past? %>
+          <p class="info">This survey has reacher its deadline.</p>
+      <% elsif @survey.start_time && !@survey.start_time.past? %>
+          <p class="info">This survey hasn't started yet.</p>
+      <% else %>
+          <% if !answered?(@survey.id) %>
+              <%= form_for(@survey, url: classroom_survey_answer_path(@classroom, @survey), method: :post) do |survey_form| %>
+                  <%= content_tag(:p, @survey.description, class: 'survey-description') if !@survey.description.empty? %>
+                  <p class="survey-deadline"><span>Deadline:</span> <%= @survey.end_time.strftime('%d/%m/%Y %H:%M:%S') %></p>
+                  <% @survey.survey_questions.each_with_index do |question, index| %>
+                      <p class="question-title">
+                        <span>Question #<%= index %></span>
+                        <%= question.question %>
+                      </p>
+                      <div class="answers">
+                        <% question.survey_answers.each_with_index do |answer, index| %>
+                            <%= survey_form.fields_for answer, index: question.id do |answer_form| %>
+                                <p>
+                                  <%= answer_form.radio_button :chosen_answer, answer.id %>
+                                  <%= answer_form.label :chosen_answer, answer.answer, :value => answer.id %>
+                                </p>
+                            <% end %>
+                        <% end %>
+                      </div>
+                  <% end %>
+                  <div class="text-right">
+                    <%= survey_form.submit 'Answer Survey', class: 'btn' %>
+                  </div>
+              <% end %>
+          <% else %>
+              <p class="info">You already answered this survey! Thanks :)</p>
           <% end %>
       <% end %>
-      <div class="text-right">
-        <%= survey_form.submit 'Answer Survey', class: 'btn' %>
-      </div>
-    <% end %>
   <% end %>
 </section>

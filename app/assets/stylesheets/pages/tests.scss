@@ -1,0 +1,113 @@
+.tests-show{
+  .test-description{
+    font-family: 'Raleway', sans-serif;
+    color: $gray-light;
+    font-weight: 500;
+  }
+  .test-deadline{
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    color: $gray-light;
+    font-weight: 500;
+    margin-bottom: 30px;
+    span{
+      font-weight: 700;
+      color: $main-purple;
+      text-transform: uppercase;
+    }
+  }
+  .question-title{
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    color: $gray-light;
+    font-weight: 500;
+    span{
+      background-color: #543c75;
+      color: #ffffff;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 15px;
+      border-radius: 1000px;
+      margin-right: 5px;
+    }
+  }
+  .alternatives{
+    margin-top: 30px;
+    p{
+      font-family: 'Raleway', sans-serif;
+      color: $gray-light;
+      font-weight: 500;
+      span{
+        font-size: 20px;
+        font-weight: 900;
+        width: 60px;
+        display: inline-block;
+      }
+      label {
+        font-family: 'Raleway', sans-serif;
+        color: $gray-light;
+        font-weight: 500;
+      }
+    }
+  }
+  .info{
+    font-family: 'Raleway', sans-serif;
+    color: $gray-light;
+    font-weight: 500;
+  }
+}
+
+.tests-evaluation{
+  .question-title{
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    color: $gray-light;
+    font-weight: 500;
+    span{
+      background-color: #543c75;
+      color: #ffffff;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 15px;
+      border-radius: 1000px;
+      margin-right: 5px;
+    }
+  }
+  .question-response{
+    .alternative{
+      font-family: 'Raleway', sans-serif;
+      color: $gray-light;
+      font-weight: 500;
+      opacity: 0.5;
+      &.wrong{
+        color: #e74c3c;
+      }
+      &.correct{
+        color: #2ecc71;
+      }
+      &.response{
+        font-weight: 700;
+        opacity: 1;
+      }
+    }
+    .answer{
+      font-family: 'Raleway', sans-serif;
+      color: $gray-light;
+      font-weight: 500;
+    }
+  }
+  .write-feedback{
+    font-family: 'Raleway', sans-serif;
+    color: $gray-light;
+    font-weight: 500;
+    &:hover, &:focus{
+      text-decoration: none;
+      color: $gray-light;
+    }
+  }
+  .info{
+    font-family: 'Raleway', sans-serif;
+    color: $gray-light;
+    font-weight: 500;
+  }
+}

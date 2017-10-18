@@ -20,14 +20,14 @@ class Ability
         can [:new, :create], Subscription
         can [:teacher_index], Log
         if (subscription = user.subscriptions.find_by(classroom_id: current_classroom))
-          can [:index, :show], Survey
+          can [:index, :show, :answer], Survey
+          can [:index, :show, :solve], Test
           if subscription.role == 'teacher'
             can [:new, :edit, :create, :update], Section
             can [:new, :edit, :create, :update], Link
             can [:new, :edit, :create, :update], Document
             can [:new, :edit, :create, :update], Survey
-            can [:new, :edit, :create, :update], SurveyQuestion
-            can [:new, :edit, :create, :update], SurveyAnswer
+            can [:new, :edit, :create, :update, :evaluate], Test
           end
         end
       end

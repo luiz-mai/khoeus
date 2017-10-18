@@ -1,0 +1,76 @@
+<% provide(:title, @test.title) %>
+
+<section class="card content">
+  <% if is_teacher? %>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Grade</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% for student in @classroom.subscriptions.collect(&:user) %>
+            <tr>
+              <td> <%= student.name %> </td>
+              <td> <%= students_grade(student) %> </td>
+              <td> <%= link_to (fa_icon 'pencil'), classroom_test_evaluation_path(@classroom, @test, student) %> </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+  <% else %>
+      <% if @test.end_time.past? %>
+          <p class="info">This test has reached its deadline.</p>
+      <% elsif @test.start_time && !@test.start_time.past? %>
+          <p class="info">This test hasn't started yet.</p>
+      <% else %>
+          <% if !answered?(@test.id) %>
+              <%= form_for(@test, url: classroom_test_solve_path(@classroom, @test), method: :post) do |test_form| %>
+                  <%= content_tag(:p, @test.description, class: 'test-description') if !@test.description.empty? %>
+                  <p class="test-deadline"><span>Deadline:</span> <%= @test.end_time.strftime('%d/%m/%Y %H:%M:%S') %>
+                  </p>
+                  <% @test.test_questions.each_with_index do |question, index| %>
+                      <p class="question-title">
+                        <span>Question #<%= index %></span>
+                        <%= question.question %>
+                      </p>
+                      <% if question.question_type == 'objective' %>
+                          <div class="alternatives">
+                            <% question.test_alternatives.each_with_index do |alternative, index| %>
+                                <%= test_form.fields_for alternative, index: question.id do |alternative_form| %>
+                                    <p>
+                                      <%= alternative_form.radio_button :chosen_alternative, alternative.id %>
+                                      <%= alternative_form.label :chosen_alternative, alternative.content, :value => alternative.id %>
+                                    </p>
+                                <% end %>
+                            <% end %>
+                          </div>
+                      <% else %>
+                          <%= test_form.fields_for question, index: question.id do |response_form| %>
+                              <div class="form-group">
+                                <%= response_form.label :answer %>
+                                <div class="form-fields ">
+                                  <%= fa_icon 'list-ol' %>
+                                  <div class="row">
+                                    <div class="col-xs-12 col-md-12">
+                                      <%= response_form.text_area :answer, class: 'form-field' %>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                          <% end %>
+                      <% end %>
+                      <hr>
+                  <% end %>
+                  <div class="text-right">
+                    <%= test_form.submit 'Submit Test', class: 'btn' %>
+                  </div>
+              <% end %>
+          <% else %>
+              <p class="info">You already answered this test! Thanks :)</p>
+          <% end %>
+      <% end %>
+  <% end %>
+</section>

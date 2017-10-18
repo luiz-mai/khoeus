@@ -10,6 +10,10 @@
   padding: 8px 0;
   position: relative;
   border-bottom: solid 4px $main-darkpurple;
+  &:focus{
+    background-color: $main-purple;
+    color: $white;
+  }
   &:hover{
     color: $white;
     background-color: $main-darkpurple;

@@ -9,4 +9,8 @@ class ManageSurveyQuestionService < CrudService
     end
   end
 
+  def retrieve_responses
+    retrieve(@survey_question.id).survey_answers.collect(&:survey_responses).reject!(&:empty?)
+  end
+
 end

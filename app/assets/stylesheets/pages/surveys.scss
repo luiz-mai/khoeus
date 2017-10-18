@@ -1,0 +1,58 @@
+.surveys-show{
+  .survey-description{
+    font-family: 'Raleway', sans-serif;
+    color: $gray-light;
+    font-weight: 500;
+  }
+  .survey-deadline{
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    color: $gray-light;
+    font-weight: 500;
+    margin-bottom: 30px;
+    span{
+      font-weight: 700;
+      color: $main-purple;
+      text-transform: uppercase;
+    }
+  }
+  .question-title{
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    color: $gray-light;
+    font-weight: 500;
+    span{
+      background-color: #543c75;
+      color: #ffffff;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 15px;
+      border-radius: 1000px;
+      margin-right: 5px;
+    }
+  }
+  .answers{
+    margin-top: 30px;
+    p{
+      font-family: 'Raleway', sans-serif;
+      color: $gray-light;
+      font-weight: 500;
+      span{
+        font-size: 20px;
+        font-weight: 900;
+        width: 60px;
+        display: inline-block;
+      }
+      label {
+        font-family: 'Raleway', sans-serif;
+        color: $gray-light;
+        font-weight: 500;
+      }
+    }
+  }
+  .info{
+    font-family: 'Raleway', sans-serif;
+    color: $gray-light;
+    font-weight: 500;
+  }
+}

@@ -15,5 +15,12 @@ $(document).ready(function(){
             }
         });
         return false;
-    })
+    });
+    $(document).on('change', '.question-type', function(){
+        if(this.value === 'objective'){
+            $(this).parents('fieldset').find('.question-alternatives').removeClass('hidden');
+        } else if (this.value === 'open-ended'){
+            $(this).parents('fieldset').find('.question-alternatives').addClass('hidden');
+        }
+    });
 });

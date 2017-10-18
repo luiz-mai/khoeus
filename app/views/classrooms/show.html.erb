@@ -37,19 +37,24 @@
             <% end %>
           </div>
       <% end %>
-      <div class="text-right">
-        <div class="dropdown">
-          <a href="#" data-target="#" data-toggle="dropdown" class="dropdown-toggle btn">Add item</a>
-          <ul class="dropdown-menu dropdown-menu-right">
-            <li><%= link_to 'Link', new_classroom_link_path(@classroom, section: section.id) %></li>
-            <li><%= link_to 'File', new_classroom_document_path(@classroom, section: section.id) %></li>
-            <li><%= link_to 'Survey', new_classroom_survey_path(@classroom, section: section.id) %></li>
-          </ul>
-        </div>
-      </div>
+      <% if is_teacher? %>
+          <div class="text-right">
+            <div class="dropdown">
+              <a href="#" data-target="#" data-toggle="dropdown" class="dropdown-toggle btn">Add item</a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><%= link_to 'Link', new_classroom_link_path(@classroom, section: section.id) %></li>
+                <li><%= link_to 'File', new_classroom_document_path(@classroom, section: section.id) %></li>
+                <li><%= link_to 'Survey', new_classroom_survey_path(@classroom, section: section.id) %></li>
+                <li><%= link_to 'Test', new_classroom_test_path(@classroom, section: section.id) %></li>
+              </ul>
+            </div>
+          </div>
+      <% end %>
       <hr>
   <% end %>
-  <div class="text-right">
-    <%= link_to 'Add section', new_classroom_section_path(@classroom), class: 'btn' %>
-  </div>
+  <% if is_teacher? %>
+    <div class="text-right">
+      <%= link_to 'Add section', new_classroom_section_path(@classroom), class: 'btn' %>
+    </div>
+  <% end %>
 </section>

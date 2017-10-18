@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171012183634) do
+ActiveRecord::Schema.define(version: 20171015234441) do
 
   create_table "board_items", force: :cascade do |t|
     t.string   "type"
@@ -97,6 +97,55 @@ ActiveRecord::Schema.define(version: 20171012183634) do
     t.datetime "updated_at",       null: false
     t.index ["survey_answer_id"], name: "index_survey_responses_on_survey_answer_id"
     t.index ["user_id"], name: "index_survey_responses_on_user_id"
+  end
+
+  create_table "test_alternative_responses", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "test_alternative_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["test_alternative_id"], name: "index_test_alternative_responses_on_test_alternative_id"
+    t.index ["user_id"], name: "index_test_alternative_responses_on_user_id"
+  end
+
+  create_table "test_alternatives", force: :cascade do |t|
+    t.string   "content"
+    t.boolean  "correct"
+    t.integer  "test_question_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["test_question_id"], name: "index_test_alternatives_on_test_question_id"
+  end
+
+  create_table "test_questions", force: :cascade do |t|
+    t.text     "question"
+    t.string   "question_type"
+    t.float    "value"
+    t.integer  "test_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["test_id"], name: "index_test_questions_on_test_id"
+  end
+
+  create_table "test_text_responses", force: :cascade do |t|
+    t.float    "grade"
+    t.text     "response"
+    t.integer  "user_id"
+    t.integer  "test_question_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["test_question_id"], name: "index_test_text_responses_on_test_question_id"
+    t.index ["user_id"], name: "index_test_text_responses_on_user_id"
+  end
+
+  create_table "text_feedbacks", force: :cascade do |t|
+    t.string   "feedback"
+    t.integer  "test_text_response_id"
+    t.integer  "test_alternative_response_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["test_alternative_response_id"], name: "index_text_feedbacks_on_test_alternative_response_id"
+    t.index ["test_text_response_id"], name: "index_text_feedbacks_on_test_text_response_id"
   end
 
   create_table "users", force: :cascade do |t|

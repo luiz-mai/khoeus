@@ -10,6 +10,11 @@ Rails.application.routes.draw do
     resources :surveys, :except => [:index] do
       post '/answer', to: 'surveys#answer', as: :answer
     end
+    resources :tests, :except => [:index] do
+      post '/solve', to: 'tests#solve', as: :solve
+      get '/evaluate/:user_id', to: 'tests#evaluation', as: :evaluation
+      post '/evaluate/:user_id', to: 'tests#evaluate', as: :evaluate
+    end
   end
 
   root   'pages#home'
