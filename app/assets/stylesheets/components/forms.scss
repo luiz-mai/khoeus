@@ -30,6 +30,12 @@
       width: 100%;
       font-size: 14px;
       font-family: "Roboto", sans-serif;
+      &.date{
+        width: auto;
+      }
+    }
+    select.form-field{
+      height: 34px;
     }
     .remove_nested_fields_link{
       position: absolute;

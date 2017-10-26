@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
     $('#user_cep').blur(function(){
         $.ajax({
             url : 'http://viacep.com.br/ws/' + $('#user_cep').val() + '/json/ ',
@@ -21,6 +22,13 @@ $(document).ready(function(){
             $(this).parents('fieldset').find('.question-alternatives').removeClass('hidden');
         } else if (this.value === 'open-ended'){
             $(this).parents('fieldset').find('.question-alternatives').addClass('hidden');
+        }
+    });
+    $(document).on('change', '#assignment_assignment_type', function(){
+        if(this.value === 'file'){
+            $('#assignment_file_limit').parents('.form-group').removeClass('hidden');
+        } else {
+            $('#assignment_file_limit').parents('.form-group').addClass('hidden');
         }
     });
 });

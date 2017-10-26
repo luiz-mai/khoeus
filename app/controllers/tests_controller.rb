@@ -77,10 +77,10 @@ class TestsController < ApplicationController
         unless value['feedback'].blank?
           question = ManageTestQuestionService.new.retrieve(key)
           if question.question_type == 'objective'
-            chosen_alternative = user_chosen_alternative(@student, question.id)
+            chosen_alternative = user_test_chosen_alternative(@student, question.id)
             feedback_params = {:feedback => value['feedback'], :test_alternative_response_id => chosen_alternative.id}
           else
-            feedback_params = {:feedback => value['feedback'], :test_text_response_id => user_response(@student, question.id).id}
+            feedback_params = {:feedback => value['feedback'], :test_text_response_id => user_test_response(@student, question.id).id}
           end
           ManageTextFeedbackService.new.create(feedback_params)
         end

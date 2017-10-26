@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :survey_responses
   has_many :test_text_responses
   has_many :test_alternative_responses
+  has_many :submissions
 
   has_attached_file :photo
 

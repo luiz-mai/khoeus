@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171015234441) do
+ActiveRecord::Schema.define(version: 20171025173642) do
 
   create_table "board_items", force: :cascade do |t|
     t.string   "type"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20171015234441) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.string   "uri"
+    t.string   "assignment_type"
     t.integer  "file_limit"
     t.integer  "section_id"
     t.datetime "created_at",                 null: false
@@ -61,6 +62,23 @@ ActiveRecord::Schema.define(version: 20171015234441) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["classroom_id"], name: "index_sections_on_classroom_id"
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.string   "type"
+    t.float    "grade"
+    t.string   "language"
+    t.text     "content"
+    t.string   "assignment_file_file_name"
+    t.string   "assignment_file_content_type"
+    t.integer  "assignment_file_file_size"
+    t.datetime "assignment_file_updated_at"
+    t.integer  "assignment_id"
+    t.integer  "user_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["assignment_id"], name: "index_submissions_on_assignment_id"
+    t.index ["user_id"], name: "index_submissions_on_user_id"
   end
 
   create_table "subscriptions", force: :cascade do |t|

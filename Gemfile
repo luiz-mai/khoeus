@@ -24,6 +24,7 @@ gem 'cancancan', '~> 2.0'
 gem 'shoulda-matchers', '~> 3.0'
 gem 'rails-controller-testing'
 gem 'nested_form_fields'
+gem 'codemirror-rails'
 
 
 group :development, :test do

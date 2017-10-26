@@ -23,6 +23,8 @@ module ClassroomsHelper
         classroom_survey_path(@classroom, item.id)
       when 'Test'
         classroom_test_path(@classroom, item.id)
+      when 'Assignment'
+        classroom_assignment_path(@classroom, item.id)
     end
   end
 

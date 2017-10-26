@@ -25,7 +25,7 @@
       <% elsif @survey.start_time && !@survey.start_time.past? %>
           <p class="info">This survey hasn't started yet.</p>
       <% else %>
-          <% if !answered?(@survey.id) %>
+          <% if !answered_test?(@survey.id) %>
               <%= form_for(@survey, url: classroom_survey_answer_path(@classroom, @survey), method: :post) do |survey_form| %>
                   <%= content_tag(:p, @survey.description, class: 'survey-description') if !@survey.description.empty? %>
                   <p class="survey-deadline"><span>Deadline:</span> <%= @survey.end_time.strftime('%d/%m/%Y %H:%M:%S') %></p>

@@ -8,7 +8,7 @@ class CreateBoardItems < ActiveRecord::Migration[5.0]
       t.timestamp :start_time
       t.timestamp :end_time
       t.string :uri
-      t.string :type
+      t.string :assignment_type
       t.integer :file_limit
       t.belongs_to :section
 

@@ -21,7 +21,7 @@
             <div class="dropdown item-options">
               <%= link_to (fa_icon 'caret-down'), 'javascript:;', :data => { toggle: 'dropdown', target: '#' } %>
               <ul class="dropdown-menu dropdown-menu-right">
-                <li><%= link_to 'Edit', [:edit, @classroom, item] %></li>
+                <li><%= link_to 'Edit', [:edit, @classroom, item, section: section.id] %></li>
                 <li><%= link_to 'Delete', [@classroom, item],
                                 data: {:confirm => 'Are you sure?'}, :method => :delete %></li>
               </ul>
@@ -46,6 +46,7 @@
                 <li><%= link_to 'File', new_classroom_document_path(@classroom, section: section.id) %></li>
                 <li><%= link_to 'Survey', new_classroom_survey_path(@classroom, section: section.id) %></li>
                 <li><%= link_to 'Test', new_classroom_test_path(@classroom, section: section.id) %></li>
+                <li><%= link_to 'Assignment', new_classroom_assignment_path(@classroom, section: section.id) %></li>
               </ul>
             </div>
           </div>

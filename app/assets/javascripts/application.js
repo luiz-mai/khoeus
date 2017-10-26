@@ -15,5 +15,6 @@
 //= require bootstrap
 //= require turbolinks
 //= require nested_form_fields
+//= require codemirror
 //= require khoeus
 //= require_tree .

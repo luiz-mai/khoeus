@@ -1,7 +1,7 @@
 <% provide(:title, @test.title) %>
 
 <section class="card content">
-  <% if answered?(@test.id, @student) %>
+  <% if answered_test?(@test.id, @student) %>
       <%= form_for(@test, url: classroom_test_evaluate_path(@classroom, @test, @student), method: :post) do |test_form| %>
           <% @test.test_questions.each_with_index do |question, index| %>
               <p class="question-title">
@@ -17,7 +17,7 @@
                     <% end %>
                 <% else %>
                     <p class="answer">
-                      <%= user_response(@student, question.id).response %>
+                      <%= user_test_response(@student, question.id).response %>
                     </p>
                 <% end %>
 

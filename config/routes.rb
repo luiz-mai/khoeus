@@ -15,6 +15,11 @@ Rails.application.routes.draw do
       get '/evaluate/:user_id', to: 'tests#evaluation', as: :evaluation
       post '/evaluate/:user_id', to: 'tests#evaluate', as: :evaluate
     end
+    resources :assignments, :except => [:index] do
+      post '/submit', to: 'assignments#submit', as: :submit
+      get '/evaluate/:user_id', to: 'assignments#evaluation', as: :evaluation
+      post '/evaluate/:user_id', to: 'assignments#evaluate', as: :evaluate
+    end
   end
 
   root   'pages#home'

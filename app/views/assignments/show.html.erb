@@ -1,0 +1,65 @@
+<% provide(:title, @assignment.title) %>
+
+
+<section class="card content">
+  <% if is_teacher? %>
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Grade</th>
+          <th>Submitted</th>
+          <th>Evaluated</th>
+          <th class="text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for student in @classroom.subscriptions.collect(&:user) %>
+            <tr>
+              <td> <%= student.name %> </td>
+              <td> <%= students_assignment_grade(student) %> </td>
+              <td> <%= submitted_assignment?(@assignment.id, student) ? 'Yes' : 'No' %> </td>
+              <td> <%= evaluated_assignment?(@assignment, student) %> </td>
+              <td> <%= link_to (fa_icon 'pencil'), classroom_assignment_evaluation_path(@classroom, @assignment, student) %> </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+  <% else %>'
+      <% if @assignment.end_time.past? %>
+          <p class="info">This assignment has reached its deadline.</p>
+      <% elsif @assignment.start_time && !@assignment.start_time.past? %>
+          <p class="info">This assignment hasn't started yet.</p>
+      <% else %>
+          <% if !submitted_assignment?(@assignment.id) %>
+              <%= form_for(@assignment, url: classroom_assignment_submit_path(@classroom, @assignment), method: :post) do |assignment_form| %>
+                  <%= content_tag(:p, @assignment.description, class: 'assignment-description') if !@assignment.description.empty? %>
+                  <p class="assignment-deadline"><span>Deadline:</span> <%= @assignment.end_time.strftime('%d/%m/%Y %H:%M:%S') %></p>
+                  <% if @assignment.assignment_type == 'code' %>
+
+                  <% elsif @assignment.assignment_type == 'file' %>
+
+                  <% else %>
+                      <div class="form-group">
+                        <%= assignment_form.label :content %>
+                        <div class="form-fields ">
+                          <%= fa_icon 'align-left' %>
+                          <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                              <%= assignment_form.text_area :content, class: 'form-field' %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  <% end %>
+
+                  <div class="text-right">
+                    <%= assignment_form.submit 'Submit Assignment', class: 'btn' %>
+                  </div>
+              <% end %>
+          <% else %>
+              <p class="info">You already answered this assignment! Thanks :)</p>
+          <% end %>
+      <% end %>
+  <% end %>
+</section>
