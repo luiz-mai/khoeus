@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171025173642) do
+ActiveRecord::Schema.define(version: 20171026224125) do
 
   create_table "board_items", force: :cascade do |t|
     t.string   "type"
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(version: 20171025173642) do
     t.float    "minimum_grade"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "code_lines", force: :cascade do |t|
+    t.integer  "line_number"
+    t.text     "content"
+    t.integer  "code_submission_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["code_submission_id"], name: "index_code_lines_on_code_submission_id"
   end
 
   create_table "logs", force: :cascade do |t|

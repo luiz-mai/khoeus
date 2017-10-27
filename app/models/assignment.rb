@@ -1,7 +1,8 @@
 class Assignment < BoardItem
   attr_accessor :content
   attr_accessor :assignment_file
-  attr_accessor :language
+  attr_accessor :code
+  attr_accessor :code_language
 
   has_many :submissions, :dependent => :destroy
 

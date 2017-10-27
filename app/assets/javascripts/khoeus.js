@@ -24,11 +24,19 @@ $(document).ready(function(){
             $(this).parents('fieldset').find('.question-alternatives').addClass('hidden');
         }
     });
-    $(document).on('change', '#assignment_assignment_type', function(){
-        if(this.value === 'file'){
-            $('#assignment_file_limit').parents('.form-group').removeClass('hidden');
-        } else {
-            $('#assignment_file_limit').parents('.form-group').addClass('hidden');
-        }
-    });
+
+    if($("#assignment_code").length) {
+        var editor = CodeMirror.fromTextArea(document.getElementById('assignment_code'), {
+            lineNumbers: true,
+            matchBrackets: true,
+            theme: "seti",
+            mode: "text/x-csrc"
+        });
+        var mac = CodeMirror.keyMap.default == CodeMirror.keyMap.macDefault;
+        CodeMirror.keyMap.default[(mac ? "Cmd" : "Ctrl") + "-Space"] = "autocomplete";
+
+        $(document).on('change','#assignment_code_language', function(){
+            editor.setOption("mode", $("#assignment_code_language").val());
+        });
+    }
 });

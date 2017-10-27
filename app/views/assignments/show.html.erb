@@ -32,13 +32,43 @@
           <p class="info">This assignment hasn't started yet.</p>
       <% else %>
           <% if !submitted_assignment?(@assignment.id) %>
-              <%= form_for(@assignment, url: classroom_assignment_submit_path(@classroom, @assignment), method: :post) do |assignment_form| %>
+              <%= form_for(@assignment, multipart: true, url: classroom_assignment_submit_path(@classroom, @assignment), method: :post) do |assignment_form| %>
                   <%= content_tag(:p, @assignment.description, class: 'assignment-description') if !@assignment.description.empty? %>
                   <p class="assignment-deadline"><span>Deadline:</span> <%= @assignment.end_time.strftime('%d/%m/%Y %H:%M:%S') %></p>
                   <% if @assignment.assignment_type == 'code' %>
+                      <div class="form-group">
+                        <%= assignment_form.label :code_language %>
+                        <div class="form-fields ">
+                          <%= fa_icon 'font' %>
+                          <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                              <%= assignment_form.select :code_language, options_for_select([['C','text/x-csrc'], ['Javascript', 'text/javascript']]), {}, class: 'form-field' %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
+                      <div class="form-group">
+                        <%= assignment_form.label :code %>
+                        <div class="form-fields ">
+                          <%= fa_icon 'align-left' %>
+                          <div class="row">
+                              <%= assignment_form.text_area :code, class: 'form-field' %>
+                          </div>
+                        </div>
+                      </div>
                   <% elsif @assignment.assignment_type == 'file' %>
-
+                      <div class="form-group">
+                        <%= assignment_form.label :assignment_file %>
+                        <div class="form-fields ">
+                          <%= fa_icon 'file' %>
+                          <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                              <%= assignment_form.file_field :assignment_file, class: 'form-field' %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                   <% else %>
                       <div class="form-group">
                         <%= assignment_form.label :content %>
@@ -58,7 +88,7 @@
                   </div>
               <% end %>
           <% else %>
-              <p class="info">You already answered this assignment! Thanks :)</p>
+              <p class="info">You already submitted this assignment! Thanks :)</p>
           <% end %>
       <% end %>
   <% end %>
