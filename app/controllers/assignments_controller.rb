@@ -1,9 +1,11 @@
+require 'hacker_earth'
+
 class AssignmentsController < ApplicationController
   include ClassroomsHelper
   include AssignmentsHelper
 
   before_action :set_assignment, only: [:edit, :update, :destroy, :submit, :evaluation, :evaluate]
-  before_action :set_classroom
+  before_action :set_classroom, except: [:compile]
   before_action :set_section, only: [:create]
   before_action :set_student, only: [:evaluate, :evaluation]
 
@@ -61,7 +63,7 @@ class AssignmentsController < ApplicationController
         line_params = {:code_submission_id => code.id, :line_number => index + 1, :content => line}
         ManageCodeLineService.new.create(line_params)
       end
-    elsif @assignment.assignment_type == "file"
+    elsif @assignment.assignment_type == 'file'
       params = {:user_id => current_user.id, :assignment_id => @assignment.id, :assignment_file => assignment_params[:assignment_file]}
       ManageFileSubmissionService.new.create(params)
     else
@@ -70,6 +72,18 @@ class AssignmentsController < ApplicationController
     end
 
     redirect_to @classroom, notice: 'Assignment was successfully submitted.'
+  end
+
+  def compile
+    if request.xhr?
+      secret = ENV['HACKER_EARTH_KEY']
+      lang = 'C'
+      hackerearth = HackerEarth.new(secret,params[:code],lang)
+      result = JSON.parse(hackerearth.run)
+      render json: { result: result }
+    else
+      redirect_to @content
+    end
   end
 
 

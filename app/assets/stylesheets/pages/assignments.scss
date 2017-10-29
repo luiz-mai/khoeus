@@ -1,0 +1,50 @@
+.assignments-show{
+  .assignment-description{
+    font-family: 'Raleway', sans-serif;
+    color: $gray-light;
+    font-weight: 500;
+  }
+  .assignment-deadline{
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    color: $gray-light;
+    font-weight: 500;
+    margin-bottom: 30px;
+    span{
+      font-weight: 700;
+      color: $main-purple;
+      text-transform: uppercase;
+    }
+  }
+  .run-result {
+    margin-top: 30px;
+    background-color: $gray-dark;
+    padding: 10px;
+    code{
+      color: $white;
+      background-color: transparent;
+    }
+  }
+  .info{
+    font-family: 'Raleway', sans-serif;
+    color: $gray-light;
+    font-weight: 500;
+  }
+}
+
+.assignments-evaluation{
+  .write-feedback{
+    font-family: 'Raleway', sans-serif;
+    color: $gray-light;
+    font-weight: 500;
+    &:hover, &:focus{
+      text-decoration: none;
+      color: $gray-light;
+    }
+  }
+  .info{
+    font-family: 'Raleway', sans-serif;
+    color: $gray-light;
+    font-weight: 500;
+  }
+}

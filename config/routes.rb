@@ -36,5 +36,6 @@ Rails.application.routes.draw do
   patch  '/password-reset/:token', to: 'users#reset_password'
   get    '/subscribe/:id', to: 'subscriptions#new', as: :subscribe
   post   '/subscribe/:id', to: 'subscriptions#create'
+  post '/compile', to: 'assignments#compile', as: :compile
 
 end

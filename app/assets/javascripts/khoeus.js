@@ -38,5 +38,32 @@ $(document).ready(function(){
         $(document).on('change','#assignment_code_language', function(){
             editor.setOption("mode", $("#assignment_code_language").val());
         });
+        $(document).on('click', '.run-code', function(e){
+            e.preventDefault();
+            var code = editor.getValue();
+            $(".loading").toggleClass('hidden');
+            $(".run-result").toggleClass('hidden');
+            $.ajax({
+                type: "POST",
+                url: "/compile",
+                dataType: 'json',
+                data: {
+                    code: editor.getValue(),
+                },
+                success: function(data)
+                {
+                    $(".loading").toggleClass('hidden');
+                    if(data.result.compile_status == "OK"){
+                        if(data.result.run_status.stderr !== ""){
+                            $(".run-result code").html(data.result.run_status.stderr.replace(/[\n\r]/g, '<br>'))
+                        }
+                        $(".run-result code").html(data.result.run_status.output_html.replace(/[\n\r]/g, '<br>'))
+                    } else {
+                        $(".run-result code").html(data.result.compile_status.replace(/[\n\r]/g, '<br>'))
+                    }
+
+                }
+            });
+        });
     }
 });

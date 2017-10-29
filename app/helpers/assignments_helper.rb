@@ -1,10 +1,8 @@
 module AssignmentsHelper
   def submitted_assignment?(assignment_id, student = current_user)
-    unless student.test_text_responses.empty?
+    unless student.submissions.empty?
       return true unless student.submissions
-                             .collect(&:test)
-                             .uniq
-                             .select { |assignment| assignment.id == assignment_id }
+                             .select { |submission| submission.assignment_id == assignment_id }
                              .empty?
     end
   end

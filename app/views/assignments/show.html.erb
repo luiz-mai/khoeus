@@ -42,7 +42,7 @@
                           <%= fa_icon 'font' %>
                           <div class="row">
                             <div class="col-xs-12 col-md-12">
-                              <%= assignment_form.select :code_language, options_for_select([['C','text/x-csrc'], ['Javascript', 'text/javascript']]), {}, class: 'form-field' %>
+                              <%= assignment_form.select :code_language, options_for_select([['C','text/x-csrc']]), {}, class: 'form-field' %>
                             </div>
                           </div>
                         </div>
@@ -53,7 +53,7 @@
                         <div class="form-fields ">
                           <%= fa_icon 'align-left' %>
                           <div class="row">
-                              <%= assignment_form.text_area :code, class: 'form-field' %>
+                            <%= assignment_form.text_area :code, class: 'form-field' %>
                           </div>
                         </div>
                       </div>
@@ -83,9 +83,20 @@
                       </div>
                   <% end %>
 
-                  <div class="text-right">
-                    <%= assignment_form.submit 'Submit Assignment', class: 'btn' %>
-                  </div>
+                  <% if @assignment.assignment_type == 'code' %>
+                      <div class="text-right">
+                        <%= image_tag 'loading', class: 'loading hidden' %>
+                        <%= link_to 'Run', '#', class: 'btn run-code', name: 'run' %>
+                        <%= assignment_form.submit 'Submit Assignment', class: 'btn', name: 'submit' %>
+                      </div>
+                      <div class="run-result hidden">
+                        <code></code>
+                      </div>
+                  <% else %>
+                      <div class="text-right">
+                        <%= assignment_form.submit 'Submit Assignment', class: 'btn' %>
+                      </div>
+                  <% end %>
               <% end %>
           <% else %>
               <p class="info">You already submitted this assignment! Thanks :)</p>

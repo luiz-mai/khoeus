@@ -25,7 +25,31 @@
         </tbody>
       </table>
   <% else %>
-      <% if @test.end_time.past? %>
+      <% if evaluated_test?(@test, student) %>
+          <% @test.test_questions.each_with_index do |question, index| %>
+              <p class="question-title">
+                <span>Question #<%= index %></span>
+                <%= question.question %>
+              </p>
+              <div class="question-response">
+                <% if question.question_type == 'objective' %>
+                    <% question.test_alternatives.each do |alternative| %>
+                        <p class="alternative <%= alternative_class(@student, question, alternative) %>">
+                          <%= alternative.content %>
+                        </p>
+                    <% end %>
+                <% else %>
+                    <p class="answer">
+                      <%= user_test_response(@student, question.id).response %>
+                    </p>
+                <% end %>
+              </div>r
+              <div class="question-feedback">
+
+              </div>
+              <hr>
+          <% end %>
+      <% elsif @test.end_time.past? %>
           <p class="info">This test has reached its deadline.</p>
       <% elsif @test.start_time && !@test.start_time.past? %>
           <p class="info">This test hasn't started yet.</p>
