@@ -25,6 +25,7 @@ gem 'shoulda-matchers', '~> 3.0'
 gem 'rails-controller-testing'
 gem 'nested_form_fields'
 gem 'codemirror-rails'
+gem 'bootstrap-popover-rails'
 
 
 group :development, :test do

@@ -4,6 +4,7 @@ class CreateTextFeedbacks < ActiveRecord::Migration[5.0]
       t.string :feedback
       t.belongs_to :test_text_response
       t.belongs_to :test_alternative_response
+      t.belongs_to :submission
 
       t.timestamps
     end

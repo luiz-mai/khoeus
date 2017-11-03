@@ -1,6 +1,7 @@
 class TestsController < ApplicationController
   include ClassroomsHelper
   include TestsHelper
+  include UsersHelper
 
   before_action :set_test, only: [:edit, :update, :destroy, :solve, :evaluation, :evaluate]
   before_action :set_classroom

@@ -25,8 +25,34 @@
         <% end %>
         </tbody>
       </table>
-  <% else %>'
-      <% if @assignment.end_time.past? %>
+  <% else %>
+      <% if submitted_assignment?(@assignment.id, current_user) && evaluated_assignment?(@assignment, current_user) %>
+          <% unless @assignment.description.blank? %>
+              <p class="assignment-description">
+                <span>DESCRIPTION</span>
+                <%= @assignment.description %>
+              </p>
+              <hr>
+          <% end %>
+          <div class="assignment-submission">
+            <% if @assignment.assignment_type == 'text' %>
+                <p class="text-submission">
+                  <span>YOUR SUBMISSION</span>
+                  <%= student_submission(current_user).content %>
+                </p>
+            <% elsif @assignment.assignment_type == 'file' %>
+                <p><%= link_to "Download submission", student_submission(current_user).assignment_file.url(:original, false)  %></p>
+            <% else %>
+
+            <% end %>
+          </div>
+          <div class="assignment-feedback">
+            <p class="feedback-title">Feedback</p>
+            <p class="grade"><span>Grade:</span> <%= student_submission(current_user).grade %></p>
+            <p class="feedback"><%= students_submission_feedback(current_user)  %></p>
+          </div>
+
+      <% elsif @assignment.end_time.past? %>
           <p class="info">This assignment has reached its deadline.</p>
       <% elsif @assignment.start_time && !@assignment.start_time.past? %>
           <p class="info">This assignment hasn't started yet.</p>
@@ -99,7 +125,7 @@
                   <% end %>
               <% end %>
           <% else %>
-              <p class="info">You already submitted this assignment! Thanks :)</p>
+              <p class="info">You already submitted this assignment! Wait until a teacher gives you a feedback :)</p>
           <% end %>
       <% end %>
   <% end %>

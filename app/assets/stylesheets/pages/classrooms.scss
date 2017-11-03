@@ -35,6 +35,9 @@
           cursor: pointer;
         }
       }
+      &:active, &:focus, &:hover{
+        text-decoration: none;
+      }
     }
     .dropdown{
       position: absolute;
@@ -94,6 +97,7 @@
       }
     }
     .item-title{
+      margin-bottom: 10px;
       .item-type{
         border-bottom-left-radius: 1000px;
         border-top-left-radius: 1000px;

@@ -22,12 +22,14 @@ class Ability
         if (subscription = user.subscriptions.find_by(classroom_id: current_classroom))
           can [:index, :show, :answer], Survey
           can [:index, :show, :solve], Test
+          can [:index, :show, :submit], Assignment
           if subscription.role == 'teacher'
             can [:new, :edit, :create, :update], Section
             can [:new, :edit, :create, :update], Link
             can [:new, :edit, :create, :update], Document
             can [:new, :edit, :create, :update], Survey
             can [:new, :edit, :create, :update, :evaluate], Test
+            can [:new, :edit, :create, :update, :evaluate], Assignment
           end
         end
       end

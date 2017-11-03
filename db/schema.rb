@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171026224125) do
+ActiveRecord::Schema.define(version: 20171102022741) do
 
   create_table "board_items", force: :cascade do |t|
     t.string   "type"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 20171026224125) do
     t.float    "minimum_grade"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "code_line_feedbacks", force: :cascade do |t|
+    t.text     "feedback"
+    t.integer  "code_line_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["code_line_id"], name: "index_code_line_feedbacks_on_code_line_id"
   end
 
   create_table "code_lines", force: :cascade do |t|
@@ -169,8 +177,10 @@ ActiveRecord::Schema.define(version: 20171026224125) do
     t.string   "feedback"
     t.integer  "test_text_response_id"
     t.integer  "test_alternative_response_id"
+    t.integer  "submission_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.index ["submission_id"], name: "index_text_feedbacks_on_submission_id"
     t.index ["test_alternative_response_id"], name: "index_text_feedbacks_on_test_alternative_response_id"
     t.index ["test_text_response_id"], name: "index_text_feedbacks_on_test_text_response_id"
   end

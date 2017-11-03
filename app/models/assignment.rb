@@ -3,6 +3,8 @@ class Assignment < BoardItem
   attr_accessor :assignment_file
   attr_accessor :code
   attr_accessor :code_language
+  attr_accessor :grade
+  attr_accessor :feedback
 
   has_many :submissions, :dependent => :destroy
 

@@ -53,6 +53,7 @@ GEM
     aws-sigv4 (1.0.2)
     bcrypt (3.1.11)
     bindex (0.5.0)
+    bootstrap-popover-rails (0.1.0)
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -245,6 +246,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk (~> 2.3)
   bcrypt (~> 3.1.11)
+  bootstrap-popover-rails
   bootstrap-sass (= 3.3.6)
   bootstrap-will_paginate (= 0.0.10)
   byebug

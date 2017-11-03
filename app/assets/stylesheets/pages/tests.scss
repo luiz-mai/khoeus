@@ -31,6 +31,61 @@
       margin-right: 5px;
     }
   }
+  .question-response{
+    .alternative{
+      font-family: 'Raleway', sans-serif;
+      color: $gray-light;
+      font-weight: 500;
+      opacity: 0.5;
+      &.wrong{
+        color: #e74c3c;
+      }
+      &.correct{
+        color: #2ecc71;
+      }
+      &.response{
+        font-weight: 700;
+        opacity: 1;
+      }
+    }
+    .answer{
+      font-family: 'Raleway', sans-serif;
+      color: $gray-light;
+      font-weight: 500;
+    }
+  }
+  .question-feedback{
+    border: solid 1px $main-purple;
+    .feedback-title{
+      background-color: $main-purple;
+      color: $white;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 5px;
+      font-size: 16px;
+    }
+    .grade{
+      font-family: 'Raleway', sans-serif;
+      color: $gray-light;
+      font-weight: 500;
+      margin-left: 10px;
+      span{
+        background-color: #543c75;
+        color: #ffffff;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 3px 15px;
+        border-radius: 1000px;
+        margin-right: 5px;
+      }
+    }
+    .feedback{
+      font-family: 'Raleway', sans-serif;
+      color: $gray-light;
+      font-weight: 500;
+      margin-left: 10px;
+    }
+  }
   .alternatives{
     margin-top: 30px;
     p{

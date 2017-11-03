@@ -28,15 +28,15 @@ module TestsHelper
         question = test.test_questions.where(:question_type => 'open-ended').first
         response = student.test_text_responses.where(:test_question_id => question.id).first
         if !response.grade.nil?
-          'Yes'
+          true
         else
-          'No'
+          false
         end
       else
-        '-'     #User didnt answer
+        false     #User didnt answer
       end
     else
-      'Yes'  #Only objective questions
+      true  #Only objective questions
     end
   end
 
@@ -63,6 +63,33 @@ module TestsHelper
       end
     end
     grade
+  end
+
+  def students_question_grade(student, question)
+    if question.question_type == 'objective'
+      alternative = student.test_alternative_responses
+          .collect(&:test_alternative)
+          .select { |alternative| alternative.test_question_id == question.id }
+          .first
+      return alternative.correct ? alternative.test_question.value : 0
+    else
+      student.test_text_responses.where(test_question_id: question.id).first.grade
+    end
+  end
+
+  def students_question_feedback(student, question)
+    if question.question_type == 'objective'
+      response = question.test_alternatives
+                        .collect(&:test_alternative_responses)
+                        .select { |response| !response.empty? }
+                        .first
+                        .select{ |response| response.user_id == student.id }
+                        .first
+      return response.text_feedback ? response.text_feedback.feedback : ''
+    else
+      response = student.test_text_responses.where(test_question_id: question.id).first
+      return response.text_feedback ? response.text_feedback.feedback : ''
+    end
   end
 
   def alternative_class(student, question, alternative)

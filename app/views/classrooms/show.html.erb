@@ -30,11 +30,6 @@
               <span class="item-type item-<%= item.type.downcase %>"><%= item.type %></span>
               <%= link_to item.title, item_path(item) %>
             </div>
-            <% if item.description %>
-                <p class="item-description">
-                  <%= item.description %>
-                </p>
-            <% end %>
           </div>
       <% end %>
       <% if is_teacher? %>

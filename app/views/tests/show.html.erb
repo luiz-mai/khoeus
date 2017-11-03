@@ -18,34 +18,36 @@
               <td> <%= student.name %> </td>
               <td> <%= students_test_grade(student) %> </td>
               <td> <%= answered_test?(@test.id, student) ? 'Yes' : 'No' %> </td>
-              <td> <%= evaluated_test?(@test, student) %> </td>
+              <td> <%= evaluated_test?(@test, student) ? 'Yes' : 'No' %> </td>
               <td> <%= link_to (fa_icon 'pencil'), classroom_test_evaluation_path(@classroom, @test, student) %> </td>
             </tr>
         <% end %>
         </tbody>
       </table>
   <% else %>
-      <% if evaluated_test?(@test, student) %>
+      <% if answered_test?(@test.id, current_user) && evaluated_test?(@test, current_user) %>
           <% @test.test_questions.each_with_index do |question, index| %>
               <p class="question-title">
-                <span>Question #<%= index %></span>
+                <span>Question #<%= index + 1 %></span>
                 <%= question.question %>
               </p>
               <div class="question-response">
                 <% if question.question_type == 'objective' %>
                     <% question.test_alternatives.each do |alternative| %>
-                        <p class="alternative <%= alternative_class(@student, question, alternative) %>">
+                        <p class="alternative <%= alternative_class(current_user, question, alternative) %>">
                           <%= alternative.content %>
                         </p>
                     <% end %>
                 <% else %>
                     <p class="answer">
-                      <%= user_test_response(@student, question.id).response %>
+                      <%= user_test_response(current_user, question.id).response %>
                     </p>
                 <% end %>
-              </div>r
+              </div>
               <div class="question-feedback">
-
+                  <p class="feedback-title">Feedback</p>
+                  <p class="grade"><span>Grade:</span> <%= students_question_grade(current_user, question)%></p>
+                  <p class="feedback"><%= students_question_feedback(current_user, question) %></p>
               </div>
               <hr>
           <% end %>
@@ -61,7 +63,7 @@
                   </p>
                   <% @test.test_questions.each_with_index do |question, index| %>
                       <p class="question-title">
-                        <span>Question #<%= index %></span>
+                        <span>Question #<%= index + 1 %></span>
                         <%= question.question %>
                       </p>
                       <% if question.question_type == 'objective' %>
@@ -97,7 +99,7 @@
                   </div>
               <% end %>
           <% else %>
-              <p class="info">You already answered this test! Thanks :)</p>
+              <p class="info">You already answered this test! Wait until a teacher gives you a feedback :)</p>
           <% end %>
       <% end %>
   <% end %>

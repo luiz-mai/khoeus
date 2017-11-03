@@ -11,17 +11,30 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
+    <div class="form-group">
+      <%= f.label :title, 'Classroom name' %>
+      <div class="form-fields "><%= fa_icon 'font' %>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <%= f.text_field :title, class: 'form-field' %>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
+    <div class="form-group">
+      <%= f.label :description, 'Classroom name' %>
+      <div class="form-fields ">
+        <%= fa_icon 'align-left' %>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <%= f.text_area :description, class: 'form-field' %>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="text-right">
+      <%= f.submit class: 'btn btn-primary' %>
+    </div>
 <% end %>

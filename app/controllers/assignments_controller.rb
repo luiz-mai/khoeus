@@ -86,6 +86,30 @@ class AssignmentsController < ApplicationController
     end
   end
 
+  def evaluation
+  end
+
+  def evaluate
+    if submission_params[:feedback] && !submission_params[:feedback].blank?
+        feedback_params = {:feedback => submission_params[:feedback], :submission_id => student_submission(@student).id}
+        ManageTextFeedbackService.new.create(feedback_params)
+    end
+    if submission_params[:grade] && !submission_params[:grade].blank?
+      submission = student_submission(@student)
+      ManageSubmissionService.new(submission).update_grade(submission_params[:grade])
+    end
+    if submission_params[:code_line]
+      submission_params[:code_line].each do |key, value|
+        puts value.inspect
+        unless value['feedback'].blank?
+          feedback_params = {:feedback => value['feedback'], :code_line_id => key}
+          ManageCodeLineFeedbackService.new.create(feedback_params)
+        end
+      end
+    end
+    redirect_to @classroom, notice: 'Assignment was successfully reviewed.'
+  end
+
 
   private
   def set_assignment
@@ -105,6 +129,17 @@ class AssignmentsController < ApplicationController
   end
 
   def assignment_params
-    params.require(:assignment).permit(:title, :description, :assignment_type, :start_time, :end_time, :file_limit, :section_id, :assignment_file, :content, :code, :code_language, :grade, :feedback)
+    params.require(:assignment).permit(:title, :description, :assignment_type, :start_time, :end_time, :file_limit, :section_id, :assignment_file, :content, :code, :code_language, :grade, :feedback, :code_line => [:feedback])
   end
+
+  def submission_params
+    if @assignment.assignment_type == 'text'
+      params.require(:text_submission).permit(:feedback, :grade)
+    elsif @assignment.assignment_type == 'file'
+      params.require(:file_submission).permit(:feedback, :grade)
+    else
+      params.require(:code_submission).permit(:feedback, :grade, :code_line => [:feedback])
+    end
+  end
+
 end

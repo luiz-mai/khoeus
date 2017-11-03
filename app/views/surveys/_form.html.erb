@@ -1,65 +1,70 @@
 <%= form_for [current_classroom, @survey] do |f| %>
-  <% if @survey.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
+    <% if @survey.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
 
-      <ul>
-      <% @survey.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% @survey.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
 
-  <%= f.hidden_field :section_id, value: params[:section] %>
+    <%= f.hidden_field :section_id, value: params[:section] %>
 
-  <div class="form-group">
-    <%= f.label :title %>
-    <div class="form-fields ">
-      <%= fa_icon 'font' %>
-      <div class="row">
-        <div class="col-xs-12 col-md-12">
-          <%= f.text_field :title, class: 'form-field' %>
+    <div class="form-group">
+      <%= f.label :title %>
+      <div class="form-fields ">
+        <%= fa_icon 'font' %>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <%= f.text_field :title, class: 'form-field' %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <%= f.label :description %>
-    <div class="form-fields ">
-      <%= fa_icon 'align-left' %>
-      <div class="row">
-        <div class="col-xs-12 col-md-12">
-          <%= f.text_area :description, class: 'form-field' %>
+    <div class="form-group">
+      <%= f.label :description %>
+      <div class="form-fields ">
+        <%= fa_icon 'align-left' %>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <%= f.text_area :description, class: 'form-field' %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <%= f.label :start_time %>
-    <div class="form-fields ">
-      <%= fa_icon 'font' %>
-      <div class="row">
-        <div class="col-xs-12 col-md-12">
-          <%= f.datetime_select :start_time, class: 'form-field', include_blank: true %>
+    <div class="row">
+      <div class="col-xs-12 col-md-6">
+        <div class="form-group">
+          <%= f.label :start_time %>
+          <div class="form-fields ">
+            <%= fa_icon 'font' %>
+            <div class="row">
+              <div class="col-xs-12 col-md-12">
+                <%= f.datetime_select :start_time, {order: [:day, :month, :year, :hour, :minute ], include_blank: true}, class: 'form-field date'%>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <div class="form-group">
+          <%= f.label :end_time %>
+          <div class="form-fields ">
+            <%= fa_icon 'align-left' %>
+            <div class="row">
+              <div class="col-xs-12 col-md-12">
+                <%= f.datetime_select :end_time, {order: [:day, :month, :year, :hour, :minute ]}, class: 'form-field date' %>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :end_time %>
-    <div class="form-fields ">
-      <%= fa_icon 'align-left' %>
-      <div class="row">
-        <div class="col-xs-12 col-md-12">
-          <%= f.datetime_select :end_time, class: 'form-field' %>
-        </div>
-      </div>
-    </div>
-  </div>
 
     <hr>
 
@@ -70,18 +75,20 @@
           <div class="form-fields ">
             <%= fa_icon 'question' %>
             <div class="row">
-              <div class="col-xs-12 col-md-12">
+              <div class="col-xs-12 col-md-10">
                 <%= question_form.text_field :question, class: 'form-field' %>
-                <%= question_form.remove_nested_fields_link %>
               </div>
+              <div class="col-xs-12 col-md-2">
+                <%= question_form.check_box :required %>
+                <%= question_form.label :required, class: 'checkbox inline' %>
+              </div>
+              <%= question_form.remove_nested_fields_link %>
             </div>
           </div>
         </div>
 
-        <div>
-          <%= question_form.check_box :required %>
-          <%= question_form.label :required, class: 'checkbox inline' %>
-        </div>
+
+
 
         <%= question_form.nested_fields_for :survey_answers do |answers_form| %>
 
@@ -108,11 +115,9 @@
 
     <% end %>
 
+
     <div class="text-right">
       <%= f.add_nested_fields_link :survey_questions, 'Add question', class: 'btn'  %>
+      <%= f.submit class: 'btn' %>
     </div>
-
-  <div class="text-right">
-    <%= f.submit class: 'btn' %>
-  </div>
 <% end %>

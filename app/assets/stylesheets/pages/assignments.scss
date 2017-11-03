@@ -1,8 +1,20 @@
 .assignments-show{
-  .assignment-description{
+  .assignment-description, .text-submission{
     font-family: 'Raleway', sans-serif;
     color: $gray-light;
     font-weight: 500;
+    span{
+      background-color: #543c75;
+      color: #ffffff;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 15px;
+      border-radius: 1000px;
+      margin-right: 5px;
+    }
+  }
+  .assignment-description{
+    font-size: 18px;
   }
   .assignment-deadline{
     font-family: 'Raleway', sans-serif;
@@ -14,6 +26,38 @@
       font-weight: 700;
       color: $main-purple;
       text-transform: uppercase;
+    }
+  }
+  .assignment-feedback{
+    border: solid 1px $main-purple;
+    .feedback-title{
+      background-color: $main-purple;
+      color: $white;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 5px;
+      font-size: 16px;
+    }
+    .grade{
+      font-family: 'Raleway', sans-serif;
+      color: $gray-light;
+      font-weight: 500;
+      margin-left: 10px;
+      span{
+        background-color: #543c75;
+        color: #ffffff;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 3px 15px;
+        border-radius: 1000px;
+        margin-right: 5px;
+      }
+    }
+    .feedback{
+      font-family: 'Raleway', sans-serif;
+      color: $gray-light;
+      font-weight: 500;
+      margin-left: 10px;
     }
   }
   .run-result {
@@ -33,6 +77,32 @@
 }
 
 .assignments-evaluation{
+  .assignment-submission{
+    position: relative;
+    .add-feedback-wrapper{
+      position: absolute;
+      right: 5px;
+      top: 4px;
+      z-index: 10;
+      width: 100%;
+      text-align: right;
+      .add-feedback{
+        line-height: 20px;
+        color: $white;
+        cursor: pointer;
+      }
+      .nested_fields{
+        line-height: 1;
+      }
+      .popover{
+        width: 100%;
+        max-width: 80%;
+      }
+    }
+  }
+  .CodeMirror{
+    margin-bottom: 30px;
+  }
   .write-feedback{
     font-family: 'Raleway', sans-serif;
     color: $gray-light;

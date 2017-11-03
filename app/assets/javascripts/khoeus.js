@@ -66,4 +66,30 @@ $(document).ready(function(){
             });
         });
     }
+    if($("#assignment_evaluation").length) {
+        var editor = CodeMirror.fromTextArea(document.getElementById('assignment_evaluation'), {
+            lineNumbers: true,
+            theme: "seti",
+            mode: "text/x-csrc",
+            readOnly: "nocursor"
+        });
+        editor.setValue($("#assignment_evaluation").val().replace(/<br>/g, '\n').trim());
+        $('.add-feedback').each(function(index, elem){
+            var line_id = elem.id;
+            var codeline_arr = line_id.split('-');
+            var codeline_id = codeline_arr[1];
+            $(elem).popover({
+                html : true,
+                placement: 'left',
+                content: function() {
+                    return $("#popover-" + codeline_id + "-content").html();
+                }
+            }).on('hide.bs.popover', function () {
+                $("#code_submission_code_line_"+ codeline_id +"_feedback").val($("#textarea-" + codeline_id).val());
+            }).on('shown.bs.popover', function () {
+                $("#textarea-" + codeline_id).val($("#code_submission_code_line_"+ codeline_id +"_feedback").val());
+            });
+        });
+    }
+
 });
