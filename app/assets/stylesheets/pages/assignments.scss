@@ -60,6 +60,29 @@
       margin-left: 10px;
     }
   }
+  .assignment-submission{
+    position: relative;
+    .codeline-feedbacks{
+      position: absolute;
+      top: 4px;
+      width: 100%;
+      right: 5px;
+      text-align: right;
+      z-index: 10;
+      .codeline-feedback {
+        height: 20px;
+        i {
+          color: $white;
+        }
+        .popover{
+          color: $black;
+        }
+      }
+    }
+  }
+  .codeline-feedback{
+    color: $white;
+  }
   .run-result {
     margin-top: 30px;
     background-color: $gray-dark;
@@ -86,22 +109,21 @@
       z-index: 10;
       width: 100%;
       text-align: right;
-      .add-feedback{
-        line-height: 20px;
-        color: $white;
-        cursor: pointer;
-      }
-      .nested_fields{
-        line-height: 1;
-      }
-      .popover{
-        width: 100%;
-        max-width: 80%;
-      }
+    }
+  }
+  .popover{
+    width: 100%;
+    max-width: 100%;
+    color: $black;
+    .arrow{
+      left: 30px !important;
     }
   }
   .CodeMirror{
     margin-bottom: 30px;
+    .CodeMirror-line{
+      cursor: pointer;
+    }
   }
   .write-feedback{
     font-family: 'Raleway', sans-serif;

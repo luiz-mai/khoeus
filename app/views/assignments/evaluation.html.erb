@@ -17,10 +17,7 @@
                 <div class="add-feedback-wrapper">
                   <% student_submission(@student).code_lines.each_with_index do |code_line, index| %>
                       <%= submission_form.fields_for code_line, index: code_line.id do |line_feedback_form| %>
-                          <div>
-                            <span id="popover-<%= code_line.id %>" class="add-feedback">+</span>
                             <%= line_feedback_form.text_area :feedback, class: 'hidden' %>
-                          </div>
                           <div id="popover-<%= code_line.id %>-content" class="hidden">
                             <div class="form-group">
                               <%= line_feedback_form.label :feedback %>
@@ -28,7 +25,7 @@
                                 <%= fa_icon 'check' %>
                                 <div class="row">
                                   <div class="col-xs-12 col-md-12">
-                                    <textarea id="textarea-<%= code_line.id %>" class="form-field"></textarea>
+                                    <textarea id="textarea-<%= index + 1 %>" class="form-field"></textarea>
                                   </div>
                                 </div>
                               </div>

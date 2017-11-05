@@ -17,7 +17,7 @@
         <% for student in @classroom.subscriptions.collect(&:user) %>
             <tr>
               <td> <%= student.name %> </td>
-              <td> <%= students_assignment_grade(student) %> </td>
+              <td> <%= assignment_grade(student) %> </td>
               <td> <%= submitted_assignment?(@assignment.id, student) ? 'Yes' : 'No' %> </td>
               <td> <%= evaluated_assignment?(@assignment, student) %> </td>
               <td> <%= link_to (fa_icon 'pencil'), classroom_assignment_evaluation_path(@classroom, @assignment, student) %> </td>
@@ -43,13 +43,27 @@
             <% elsif @assignment.assignment_type == 'file' %>
                 <p><%= link_to "Download submission", student_submission(current_user).assignment_file.url(:original, false)  %></p>
             <% else %>
-
+              <textarea id="assignment_evaluation">
+                  <%= student_code(current_user) %>
+              </textarea>
+                <div class="codeline-feedbacks">
+                  <% student_submission(current_user).code_lines.each do |line| %>
+                      <div class="codeline-feedback">
+                        <% if line_feedback(line) %>
+                            <a href="#" data-toggle="popover" data-placement="left" data-content="<%= line_feedback(line) %>">
+                              <%= fa_icon 'exclamation' %>
+                            </a>
+                        <% end %>
+                      </div>
+                  <% end %>
+                </div>
+                <hr>
             <% end %>
           </div>
           <div class="assignment-feedback">
             <p class="feedback-title">Feedback</p>
             <p class="grade"><span>Grade:</span> <%= student_submission(current_user).grade %></p>
-            <p class="feedback"><%= students_submission_feedback(current_user)  %></p>
+            <p class="feedback"><%= submission_feedback(current_user)  %></p>
           </div>
 
       <% elsif @assignment.end_time.past? %>

@@ -20,17 +20,24 @@ module AssignmentsHelper
     end
   end
 
-  def students_assignment_grade(student)
+  def assignment_grade(student)
     submission = student.submissions.where(assignment_id: @assignment.id).first
     submission && !submission.grade.blank? ? submission.grade : 0
   end
 
-  def students_submission_feedback(student)
+  def submission_feedback(student)
     submission = student.submissions.where(assignment_id: @assignment.id).first
     feedback = ManageTextFeedbackService.new.list.select {|feedback| feedback.submission_id == submission.id }
     unless feedback.empty?
       feedback.first.feedback
     end
+  end
+
+  def line_feedback(line)
+    feedback = ManageCodeLineFeedbackService.new.list.select {|feedback| feedback.code_line_id == line.id }
+    unless feedback.empty?
+      feedback.first.feedback
+      end
   end
 
   def student_submission(student)

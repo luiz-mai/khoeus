@@ -1,5 +1,9 @@
 $(document).ready(function(){
 
+    $('[data-toggle="popover"]').popover().click(function(e){
+        e.preventDefault();
+    });
+
     $('#user_cep').blur(function(){
         $.ajax({
             url : 'http://viacep.com.br/ws/' + $('#user_cep').val() + '/json/ ',
@@ -74,20 +78,18 @@ $(document).ready(function(){
             readOnly: "nocursor"
         });
         editor.setValue($("#assignment_evaluation").val().replace(/<br>/g, '\n').trim());
-        $('.add-feedback').each(function(index, elem){
-            var line_id = elem.id;
-            var codeline_arr = line_id.split('-');
-            var codeline_id = codeline_arr[1];
+        $('.CodeMirror-line').each(function(index, elem){
+            var line_id = index + 1;
             $(elem).popover({
                 html : true,
-                placement: 'left',
+                placement: 'bottom',
                 content: function() {
-                    return $("#popover-" + codeline_id + "-content").html();
+                    return $("#popover-" + line_id + "-content").html();
                 }
             }).on('hide.bs.popover', function () {
-                $("#code_submission_code_line_"+ codeline_id +"_feedback").val($("#textarea-" + codeline_id).val());
+                $("#code_submission_code_line_"+ line_id +"_feedback").val($("#textarea-" + line_id).val());
             }).on('shown.bs.popover', function () {
-                $("#textarea-" + codeline_id).val($("#code_submission_code_line_"+ codeline_id +"_feedback").val());
+                $("#textarea-" + line_id).val($("#code_submission_code_line_"+ line_id +"_feedback").val());
             });
         });
     }
