@@ -1,0 +1,44 @@
+<% provide(:title, @external_activity.title) %>
+
+
+<section class="card content">
+  <% if is_teacher? %>
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Grade</th>
+          <th>Evaluated</th>
+          <th class="text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for student in @classroom.subscriptions.collect(&:user) %>
+            <tr>
+              <td> <%= student.name %> </td>
+              <td> <%= activity_grade(student) %> </td>
+              <td> <%= evaluated_activity?(@external_activity, student) %> </td>
+              <td> <%= link_to (fa_icon 'pencil'), classroom_external_activity_evaluation_path(@classroom, @external_activity, student) %> </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+  <% else %>
+      <% if evaluated_activity?(@external_activity, current_user) %>
+          <% unless @external_activity.description.blank? %>
+              <p class="external_activity-description">
+                <span>DESCRIPTION</span>
+                <%= @external_activity.description %>
+              </p>
+              <hr>
+          <% end %>
+          <div class="external_activity-feedback">
+            <p class="feedback-title">Feedback</p>
+            <p class="grade"><span>Grade:</span> <%= student_activity(current_user).grade %></p>
+            <p class="feedback"><%= activity_feedback(current_user)  %></p>
+          </div>
+      <% else %>
+          <p class="info">Wait until a teacher gives you a feedback :)</p>
+      <% end %>
+  <% end %>
+</section>

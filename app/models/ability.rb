@@ -23,6 +23,7 @@ class Ability
           can [:index, :show, :answer], Survey
           can [:index, :show, :solve], Test
           can [:index, :show, :submit], Assignment
+          can [:index, :show], ExternalActivity
           if subscription.role == 'teacher'
             can [:new, :edit, :create, :update], Section
             can [:new, :edit, :create, :update], Link
@@ -30,6 +31,7 @@ class Ability
             can [:new, :edit, :create, :update], Survey
             can [:new, :edit, :create, :update, :evaluate], Test
             can [:new, :edit, :create, :update, :evaluate], Assignment
+            can [:new, :edit, :create, :update, :evaluate], ExternalActivity
           end
         end
       end

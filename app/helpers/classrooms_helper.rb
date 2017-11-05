@@ -25,6 +25,8 @@ module ClassroomsHelper
         classroom_test_path(@classroom, item.id)
       when 'Assignment'
         classroom_assignment_path(@classroom, item.id)
+      when 'ExternalActivity'
+        classroom_external_activity_path(@classroom, item.id)
     end
   end
 

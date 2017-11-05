@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102022741) do
+ActiveRecord::Schema.define(version: 20171105110211) do
+
+  create_table "activities", force: :cascade do |t|
+    t.float    "grade"
+    t.integer  "user_id"
+    t.integer  "external_activity_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["external_activity_id"], name: "index_activities_on_external_activity_id"
+    t.index ["user_id"], name: "index_activities_on_user_id"
+  end
 
   create_table "board_items", force: :cascade do |t|
     t.string   "type"
@@ -178,8 +188,10 @@ ActiveRecord::Schema.define(version: 20171102022741) do
     t.integer  "test_text_response_id"
     t.integer  "test_alternative_response_id"
     t.integer  "submission_id"
+    t.integer  "activity_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.index ["activity_id"], name: "index_text_feedbacks_on_activity_id"
     t.index ["submission_id"], name: "index_text_feedbacks_on_submission_id"
     t.index ["test_alternative_response_id"], name: "index_text_feedbacks_on_test_alternative_response_id"
     t.index ["test_text_response_id"], name: "index_text_feedbacks_on_test_text_response_id"

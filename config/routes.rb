@@ -20,6 +20,10 @@ Rails.application.routes.draw do
       get '/evaluate/:user_id', to: 'assignments#evaluation', as: :evaluation
       post '/evaluate/:user_id', to: 'assignments#evaluate', as: :evaluate
     end
+    resources :external_activities, :except => [:index] do
+      get '/evaluate/:user_id', to: 'external_activities#evaluation', as: :evaluation
+      post '/evaluate/:user_id', to: 'external_activities#evaluate', as: :evaluate
+    end
   end
 
   root   'pages#home'
