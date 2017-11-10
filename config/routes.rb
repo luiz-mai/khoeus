@@ -1,10 +1,18 @@
 Rails.application.routes.draw do
 
+  get 'grades/index'
+
   resources :users
   resources :classrooms do
+    get '/grades', to: 'grades#index', as: :grades
     get '/members', to: 'classrooms#members', as: :members
     get '/logs', to: 'logs#teacher_index', as: :logs
     resources :sections, :except => [:index, :show]
+    get '/attendances', to: 'lessons#attendances', as: :attendances
+    resources :lessons, :except => [:show] do
+      get '/attendance', to: 'lessons#new_attendance', as: :attendance
+      post '/attendance', to: 'lessons#create_attendance', as: :attend
+    end
     resources :links, :except => [:index, :show]
     resources :documents, :except => [:index, :show]
     resources :surveys, :except => [:index] do

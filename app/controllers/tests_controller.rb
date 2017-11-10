@@ -112,6 +112,6 @@ class TestsController < ApplicationController
   end
 
   def test_params
-    params.require(:test).permit(:title, :description, :start_time, :end_time, :section_id, :chosen_alternative, :answer, :grade, :feedback, :test_questions_attributes => [:id, :question, :question_type, :value, :_destroy, :test_alternatives_attributes => [:content, :correct, :_destroy]])
+    params.require(:test).permit(:title, :description, :grade_category_id, :start_time, :end_time, :section_id, :chosen_alternative, :answer, :grade, :feedback, :test_questions_attributes => [:id, :question, :question_type, :value, :_destroy, :test_alternatives_attributes => [:content, :correct, :_destroy]])
   end
 end

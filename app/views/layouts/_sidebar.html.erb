@@ -34,20 +34,20 @@
             <span>Members</span>
           </li>
       <% end %>
-      <%= link_to root_path do %>
-          <li class="<%= current_class?('CHANGE') %>">
+      <%= link_to classroom_attendances_path(current_classroom) do %>
+          <li class="<%= current_class?(classroom_attendances_path(current_classroom)) %>">
             <%= fa_icon 'check-square' %>
             <span>Attendance List</span>
           </li>
       <% end %>
-      <%= link_to root_path do %>
-          <li class="<%= current_class?('CHANGE') %>">
+      <%= link_to classroom_grades_path(current_classroom) do %>
+          <li class="<%= current_class?(classroom_grades_path(current_classroom)) %>">
             <%= fa_icon 'book' %>
             <span>Gradebook</span>
           </li>
       <% end %>
-      <%= link_to root_path do %>
-          <li class="<%= current_class?('CHANGE') %>">
+      <%= link_to classroom_lessons_path(current_classroom) do %>
+          <li class="<%= current_class?(classroom_lessons_path(current_classroom)) %>">
             <%= fa_icon 'calendar' %>
             <span>Calendar</span>
           </li>

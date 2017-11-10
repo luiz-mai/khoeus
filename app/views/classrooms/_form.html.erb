@@ -59,7 +59,42 @@
       </div>
     </div>
 
+    <%= f.nested_fields_for :grade_categories do |categories_form| %>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <%= categories_form.label :title %>
+              <div class="form-fields ">
+                <%= fa_icon 'question' %>
+                <div class="row">
+                  <div class="col-xs-12 col-md-10">
+                    <%= categories_form.text_field :title, class: 'form-field' %>
+                  </div>
+                  <%= categories_form.remove_nested_fields_link %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <%= categories_form.label :weight %>
+              <div class="form-fields ">
+                <%= fa_icon 'question' %>
+                <div class="row">
+                  <div class="col-xs-12 col-md-10">
+                    <%= categories_form.number_field :weight, step: 1, class: 'form-field' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+
     <div class="text-right">
+      <%= f.add_nested_fields_link :grade_categories, 'Add category', class: 'btn'  %>
       <%= f.submit yield(:button_text), class: 'btn btn-primary' %>
     </div>
 

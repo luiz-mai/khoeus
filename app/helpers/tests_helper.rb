@@ -48,9 +48,9 @@ module TestsHelper
     student.test_alternative_responses.includes(:test_alternative).where(:'test_alternatives.test_question_id' => question_id).first
   end
 
-  def students_test_grade(student)
+  def students_test_grade(student, test)
     grade = 0
-    for question in @test.test_questions
+    for question in test.test_questions
       weight = question.value
       if question.question_type == 'objective'
         if (chosen_alternative = user_test_chosen_alternative(student, question.id)) && chosen_alternative.test_alternative.correct

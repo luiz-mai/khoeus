@@ -1,0 +1,23 @@
+<% provide(:title, 'Gradebook') %>
+
+
+<section class="card content">
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+    <th>Student</th>
+    <% for title in activities_titles %>
+      <th><%= title %></th>
+    <% end %>
+    <th>Final Grade</th>
+    </thead>
+    <tbody>
+    <% for student_grades in activities_grades %>
+        <tr>
+          <% for grade in student_grades %>
+              <td><%= grade %></td>
+          <% end %>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</section>

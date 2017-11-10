@@ -11,6 +11,7 @@ class CreateBoardItems < ActiveRecord::Migration[5.0]
       t.string :assignment_type
       t.integer :file_limit
       t.belongs_to :section
+      t.belongs_to :grade_category
 
       t.timestamps
     end

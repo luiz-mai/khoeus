@@ -7,6 +7,7 @@ class Assignment < BoardItem
   attr_accessor :feedback
 
   has_many :submissions, :dependent => :destroy
+  belongs_to :grade_category
 
   accepts_nested_attributes_for :submissions, allow_destroy: true
 
@@ -14,9 +15,6 @@ class Assignment < BoardItem
             presence: true
 
   validates :end_time,
-            presence: true
-
-  validates :file_limit,
             presence: true
 
 end

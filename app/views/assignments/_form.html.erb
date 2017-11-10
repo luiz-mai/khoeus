@@ -38,6 +38,18 @@
     </div>
 
     <div class="form-group">
+      <%= f.label :grade_category %>
+      <div class="form-fields ">
+        <%= fa_icon 'align-left' %>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <%= f.collection_select :grade_category_id, grade_categories, :id, :title, {}, class: 'form-field' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
       <%= f.label :start_time %>
       <div class="form-fields ">
         <%= fa_icon 'font' %>

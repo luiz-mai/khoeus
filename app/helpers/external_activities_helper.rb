@@ -13,8 +13,8 @@ module ExternalActivitiesHelper
     end
   end
 
-  def activity_grade(student)
-    activity = student.activities.where(external_activity_id: @external_activity.id).first
+  def activity_grade(student, external_activity)
+    activity = student.activities.where(external_activity_id: external_activity.id).first
     activity && !activity.grade.blank? ? activity.grade : 0
   end
 

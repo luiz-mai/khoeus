@@ -1,0 +1,22 @@
+<% provide(:title, 'Attendance List') %>
+
+<section class="card content">
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+    <th>Student</th>
+    <% for title in lessons_titles %>
+        <th><%= title %></th>
+    <% end %>
+    <th>%</th>
+    </thead>
+    <tbody>
+    <% for student_attendances in lessons_attendances %>
+        <tr>
+          <% for attendance in student_attendances %>
+              <td><%= attendance %></td>
+          <% end %>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</section>

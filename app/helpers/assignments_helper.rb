@@ -20,8 +20,8 @@ module AssignmentsHelper
     end
   end
 
-  def assignment_grade(student)
-    submission = student.submissions.where(assignment_id: @assignment.id).first
+  def assignment_grade(student, assignment)
+    submission = student.submissions.where(assignment_id: assignment.id).first
     submission && !submission.grade.blank? ? submission.grade : 0
   end
 

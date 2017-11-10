@@ -46,4 +46,8 @@ module ClassroomsHelper
         fa_icon 'book'
     end
   end
+
+  def grade_categories
+    @classroom.grade_categories
+  end
 end

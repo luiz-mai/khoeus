@@ -16,7 +16,7 @@
         <% for student in @classroom.subscriptions.collect(&:user) %>
             <tr>
               <td> <%= student.name %> </td>
-              <td> <%= activity_grade(student) %> </td>
+              <td> <%= activity_grade(student, @external_activity) %> </td>
               <td> <%= evaluated_activity?(@external_activity, student) %> </td>
               <td> <%= link_to (fa_icon 'pencil'), classroom_external_activity_evaluation_path(@classroom, @external_activity, student) %> </td>
             </tr>

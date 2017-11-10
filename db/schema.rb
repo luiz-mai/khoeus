@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171105110211) do
+ActiveRecord::Schema.define(version: 20171109204545) do
 
   create_table "activities", force: :cascade do |t|
     t.float    "grade"
@@ -33,12 +33,10 @@ ActiveRecord::Schema.define(version: 20171105110211) do
     t.string   "assignment_type"
     t.integer  "file_limit"
     t.integer  "section_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.string   "document_file_file_name"
-    t.string   "document_file_content_type"
-    t.integer  "document_file_file_size"
-    t.datetime "document_file_updated_at"
+    t.integer  "grade_category_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["grade_category_id"], name: "index_board_items_on_grade_category_id"
     t.index ["section_id"], name: "index_board_items_on_section_id"
   end
 
@@ -69,6 +67,25 @@ ActiveRecord::Schema.define(version: 20171105110211) do
     t.index ["code_submission_id"], name: "index_code_lines_on_code_submission_id"
   end
 
+  create_table "grade_categories", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "weight"
+    t.integer  "classroom_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["classroom_id"], name: "index_grade_categories_on_classroom_id"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "date"
+    t.integer  "classroom_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["classroom_id"], name: "index_lessons_on_classroom_id"
+  end
+
   create_table "logs", force: :cascade do |t|
     t.string   "action"
     t.string   "subject"
@@ -79,6 +96,16 @@ ActiveRecord::Schema.define(version: 20171105110211) do
     t.datetime "updated_at",   null: false
     t.index ["classroom_id"], name: "index_logs_on_classroom_id"
     t.index ["user_id"], name: "index_logs_on_user_id"
+  end
+
+  create_table "presences", force: :cascade do |t|
+    t.boolean  "present"
+    t.integer  "user_id"
+    t.integer  "lesson_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_presences_on_lesson_id"
+    t.index ["user_id"], name: "index_presences_on_user_id"
   end
 
   create_table "sections", force: :cascade do |t|

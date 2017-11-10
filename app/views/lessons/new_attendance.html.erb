@@ -1,0 +1,32 @@
+<% provide(:title, @lesson.title) %>
+
+
+<section class="card content">
+  <%= form_for(@lesson, url: classroom_lesson_attend_path(@classroom, @lesson), method: :post) do |attendance_form| %>
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+        <th>Student</th>
+        <th>Presence</th>
+        </thead>
+        <tbody>
+        <% for student in @students %>
+            <tr>
+              <td><%= student.name %></td>
+              <td>
+                <%= attendance_form.fields_for student, index: student.id do |student_form| %>
+                    <%= student_form.radio_button :presence, 'true', class: 'question-type' %>
+                    <%= student_form.label :presence, 'Present', class: 'checkbox inline', :value => 'true'  %>
+                    <%= student_form.radio_button :presence, 'false', class: 'question-type' %>
+                    <%= student_form.label :presence, 'Absent', class: 'checkbox inline', :value => 'false'  %>
+                <% end %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+      <div class="text-right">
+        <%= attendance_form.submit 'Attend!', class: 'btn btn-primary' %>
+      </div>
+  <% end %>
+</section>

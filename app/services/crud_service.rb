@@ -11,7 +11,7 @@ class CrudService
 
   def create(params)
     @entity = @model.create(params)
-    @entity.save ? @entity : false
+    @entity.save! ? @entity : false
   end
 
   def retrieve(id)

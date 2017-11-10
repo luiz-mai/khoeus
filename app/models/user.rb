@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :test_alternative_responses
   has_many :submissions
   has_many :activities
+  has_many :presences
 
   has_attached_file :photo
 

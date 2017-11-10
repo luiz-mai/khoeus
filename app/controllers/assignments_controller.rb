@@ -100,7 +100,6 @@ class AssignmentsController < ApplicationController
     end
     if submission_params[:code_line]
       submission_params[:code_line].each do |key, value|
-        puts value.inspect
         unless value['feedback'].blank?
           feedback_params = {:feedback => value['feedback'], :code_line_id => key}
           ManageCodeLineFeedbackService.new.create(feedback_params)
@@ -129,7 +128,7 @@ class AssignmentsController < ApplicationController
   end
 
   def assignment_params
-    params.require(:assignment).permit(:title, :description, :assignment_type, :start_time, :end_time, :file_limit, :section_id, :assignment_file, :content, :code, :code_language, :grade, :feedback, :code_line => [:feedback])
+    params.require(:assignment).permit(:title, :description, :grade_category_id, :assignment_type, :start_time, :end_time, :file_limit, :section_id, :assignment_file, :content, :code, :code_language, :grade, :feedback, :code_line => [:feedback])
   end
 
   def submission_params

@@ -1,0 +1,12 @@
+<% provide(:title, 'Edit Class') %>
+
+<section class="card content">
+  <div class="row table-row">
+    <div class="hidden-xs hidden-sm col-md-6 table-cell middle">
+      <%= image_tag 'img_form-login.png', :class => 'form-image' %>
+    </div>
+    <div class="col-xs-12 col-md-6 table-cell">
+      <%= render 'form',  lesson: @lesson %>
+    </div>
+  </div>
+</section>

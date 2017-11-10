@@ -70,7 +70,7 @@ class ClassroomsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def classroom_params
-      params.require(:classroom).permit(:name, :password, :has_grades, :has_attendance, :minimum_grade )
+      params.require(:classroom).permit(:name, :password, :has_grades, :has_attendance, :minimum_grade, :grade_categories_attributes => [:title, :weight, :_destroy] )
     end
 
     def admin_only

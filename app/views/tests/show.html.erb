@@ -16,7 +16,7 @@
         <% for student in @classroom.subscriptions.collect(&:user) %>
             <tr>
               <td> <%= student.name %> </td>
-              <td> <%= students_test_grade(student) %> </td>
+              <td> <%= students_test_grade(student, @test) %> </td>
               <td> <%= answered_test?(@test.id, student) ? 'Yes' : 'No' %> </td>
               <td> <%= evaluated_test?(@test, student) ? 'Yes' : 'No' %> </td>
               <td> <%= link_to (fa_icon 'pencil'), classroom_test_evaluation_path(@classroom, @test, student) %> </td>

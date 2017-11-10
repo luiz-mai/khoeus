@@ -85,7 +85,7 @@ class ExternalActivitiesController < ApplicationController
   end
 
   def external_activity_params
-    params.require(:external_activity).permit(:title, :description, :section_id, :grade, :feedback)
+    params.require(:external_activity).permit(:title, :description, :grade_category_id, :section_id, :grade, :feedback)
   end
 
 end
