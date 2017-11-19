@@ -31,7 +31,7 @@
                   <p class="survey-deadline"><span>Deadline:</span> <%= @survey.end_time.strftime('%d/%m/%Y %H:%M:%S') %></p>
                   <% @survey.survey_questions.each_with_index do |question, index| %>
                       <p class="question-title">
-                        <span>Question #<%= index %></span>
+                        <span>Question #<%= index + 1 %></span>
                         <%= question.question %>
                       </p>
                       <div class="answers">

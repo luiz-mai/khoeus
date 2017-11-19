@@ -22,7 +22,7 @@ module LessonsHelper
 
   def lessons_attendances
     attendances = []
-    for student in current_classroom.subscriptions.collect(&:user)
+    for student in current_classroom.subscriptions.collect(&:user).sort_by(&:name)
       student_attendances = []
       percentage = 0
       student_attendances.push(student.name)

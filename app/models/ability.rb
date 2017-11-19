@@ -14,6 +14,7 @@ class Ability
         can [:show, :logout], User
         can [:edit, :update], User, :id => user.id
         can [:index, :show, :members], Classroom
+        can [:compile], Assignment
         can [:edit, :update], Classroom do |classroom|
           user.subscriptions.find_by(classroom_id: classroom.id).role == 'teacher'
         end
@@ -24,6 +25,7 @@ class Ability
           can [:index, :show, :solve], Test
           can [:index, :show, :submit], Assignment
           can [:index, :show], ExternalActivity
+          can [:attendances, :show], Lesson
           if subscription.role == 'teacher'
             can [:new, :edit, :create, :update], Section
             can [:new, :edit, :create, :update], Link

@@ -17,29 +17,23 @@ module GradesHelper
     grade_activities.map(&:title)
   end
 
-  def activities_grades
+  def classroom_activities
     grades = []
+    final_grade = 0
     total_weight = grade_activities.collect(&:grade_category).map(&:weight).inject(0, :+)
-    for student in current_classroom.subscriptions.collect(&:user)
-      student_grades = []
-      final_grade = 0
-      student_grades.push(student.name)
-      for activity in grade_activities
-        grade = 0
-        if activity.type == 'Test'
-          grade = students_test_grade(student, activity)
-        elsif activity.type == 'Assignment'
-          grade = assignment_grade(student, activity)
-        elsif activity.type == 'ExternalActivity'
-          grade = activity_grade(student, activity)
-        end
-        student_grades.push(grade)
-        final_grade += grade * activity.grade_category.weight
+    for activity in grade_activities
+      grade = 0
+      if activity.type == 'Test'
+        grade = students_test_grade(current_user, activity)
+      elsif activity.type == 'Assignment'
+        grade = assignment_grade(current_user, activity)
+      elsif activity.type == 'ExternalActivity'
+        grade = activity_grade(current_user, activity)
       end
-      student_grades.push(final_grade/total_weight)
-      grades.push(student_grades)
+      grades.push({:title => activity.title, :type => activity.type, :grade => grade})
+      final_grade += grade * activity.grade_category.weight
     end
-    grades
+    grades.push({:title => 'Final Average', :grade => (final_grade/total_weight).round(2)})
   end
 
 end

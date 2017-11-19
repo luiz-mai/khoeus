@@ -19,10 +19,9 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+    @user = User.new
     if logged_in?
       redirect_to current_user
-    else
-      @user = User.new
     end
   end
 
@@ -32,12 +31,13 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    if (@user = ManageUserService.new.create(user_params))
+    @user = ManageUserService.new.create(user_params)
+    if @user
       flash[:info] = 'Please, check your email to activate your account.'
       generate_log('created an account', nil, nil, nil, @user.id)
       redirect_to login_path
     else
-      render :new
+      redirect_to signup_path
     end
   end
 
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
 
   # GET /activate/1
   def activate
-    @user = ManageUserService.new.retrieve_by_email(email: params[:email])
+    @user = ManageUserService.new.retrieve_by_email(params[:email].downcase)
     if @user && !@user.confirmed? && Tokens.digest_match(@user, :activation, params[:token])
       ManageUserService.new(@user).activate
       generate_log('activated his account', nil, nil, nil, @user.id)
@@ -162,7 +162,7 @@ class UsersController < ApplicationController
     end
 
     def set_user_by_email
-      @user = ManageUserService.new.retrieve_by_email(params[:email])
+      @user = ManageUserService.new.retrieve_by_email(params[:email].downcase)
     end
 
     def user_params

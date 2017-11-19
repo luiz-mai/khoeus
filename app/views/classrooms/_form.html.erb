@@ -1,11 +1,11 @@
-<%= form_for(classroom) do |f| %>
-    <% if classroom.errors.any? %>
+<%= form_for(@classroom) do |f| %>
+    <% if @classroom.errors.any? %>
         <div id="error_explanation">
           <div class="alert alert-danger">
-            The form contains <%= pluralize(classroom.errors.count, "error") %>.
+            The form contains <%= pluralize(@classroom.errors.count, "error") %>.
           </div>
           <ul>
-            <% classroom.errors.full_messages.each do |msg| %>
+            <% @classroom.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
             <% end %>
           </ul>

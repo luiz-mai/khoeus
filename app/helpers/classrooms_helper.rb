@@ -16,9 +16,9 @@ module ClassroomsHelper
   def item_path(item)
     case item.type
       when 'Link'
-        classroom_link_path(@classroom, item.id)
+        item.uri
       when 'Document'
-        classroom_document_path(@classroom, item.id)
+        item.document_file.url
       when 'Survey'
         classroom_survey_path(@classroom, item.id)
       when 'Test'

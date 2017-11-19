@@ -10,13 +10,12 @@
           <%= render 'shared/error_messages' %>
 
           <div class="form-group">
-            <%= f.label :name, 'Nome Completo' %>
+            <%= f.label :photo %>
             <div class="form-fields "><i class="fa fa-user"></i>
               <div class="row">
                 <div class="col-xs-12 col-md-12">
                   <div class="field">
-                    <%= f.label :photo %>
-                    <%= f.file_field :photo %>
+                    <%= f.file_field :photo, class: 'form-field' %>
                   </div>
                 </div>
               </div>

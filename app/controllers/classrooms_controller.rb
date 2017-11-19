@@ -40,7 +40,7 @@ class ClassroomsController < ApplicationController
       generate_log('created', 'Classroom', @classroom.id, @classroom.id)
       redirect_to @classroom, notice: 'Classroom was successfully created.'
     else
-      render :new
+      redirect_to new_classroom_path
     end
   end
 

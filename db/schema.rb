@@ -34,8 +34,12 @@ ActiveRecord::Schema.define(version: 20171109204545) do
     t.integer  "file_limit"
     t.integer  "section_id"
     t.integer  "grade_category_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "document_file_file_name"
+    t.string   "document_file_content_type"
+    t.integer  "document_file_file_size"
+    t.datetime "document_file_updated_at"
     t.index ["grade_category_id"], name: "index_board_items_on_grade_category_id"
     t.index ["section_id"], name: "index_board_items_on_section_id"
   end
