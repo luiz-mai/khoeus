@@ -1,38 +1,46 @@
-<% provide(:title, 'Turmas') %>
+<% provide(:title, 'Classrooms') %>
 
 <div class="row">
   <% @classrooms.each do |classroom| %>
       <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="card classroom">
+        <div class="classroom-wrapper">
+
+          <%= link_to classroom do %>
+              <div class="card classroom">
+                <div class="row table-row">
+                  <div class="col-xs-12 col-md-4 table-cell">
+                    <div class="students">
+                      <p class="number text-center"><%= students_count(classroom) %></p>
+                      <p class="text-center">students</p>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-md-8 table-cell middle">
+                    <h2 class="classroom-title"><%= classroom.name %></h2>
+                  </div>
+                </div>
+              </div>
+          <% end %>
           <% if current_user.admin?  %>
               <div class="dropdown">
                 <div data-target="#" data-toggle="dropdown" class="dropdown-toggle">
                   <%= fa_icon 'caret-down' %>
                 </div>
                 <ul class="dropdown-menu dropdown-menu-left">
-                  <li><%= link_to 'Editar', edit_classroom_path(classroom) %></li>
-                  <li><%= link_to 'Excluir', classroom, method: :delete, data: {confirm: 'Are you sure?'} %></li>
+                  <li><%= link_to 'Edit', edit_classroom_path(classroom) %></li>
+                  <li><%= link_to 'Delete', classroom, method: :delete, data: {confirm: 'Are you sure?'} %></li>
                 </ul>
               </div>
           <% end %>
-              <%= link_to classroom do %>
-                  <div class="row table-row">
-                    <div class="col-xs-12 col-md-4 table-cell">
-                      <div class="students">
-                        <p class="number text-center"><%= students_count(classroom) %></p>
-                        <p class="text-center">alunos</p>
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-md-8 table-cell middle">
-                      <h2 class="classroom-title"><%= classroom.name %></h2>
-                    </div>
-                  </div>
-                  </div>
-              <% end %>
-              </div>
-          <% end %>
-          </div>
 
-          <div class="text-right">
-            <%= link_to 'Nova turma', new_classroom_path, class: 'btn btn-primary' if current_user.admin? %>
-          </div>
+        </div>
+
+      </div>
+  <% end %>
+</div>
+
+<%  if current_user.admin? %>
+    <hr>
+    <div class="text-right">
+      <%= link_to 'New Classroom', new_classroom_path, class: 'btn btn-primary' %>
+    </div>
+<% end %>

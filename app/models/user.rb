@@ -1,4 +1,4 @@
-require 'Tokens'
+require 'tokens'
 
 class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token, :reset_token
@@ -7,8 +7,17 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  has_many :logs
   has_many :classrooms, through: :subscriptions
   has_many :subscriptions
+  has_many :survey_responses
+  has_many :test_text_responses
+  has_many :test_alternative_responses
+  has_many :submissions
+  has_many :activities
+  has_many :presences
+
+  has_attached_file :photo
 
   validates :name,
             presence: true
@@ -40,6 +49,9 @@ class User < ApplicationRecord
             length: {is: 2}
   validates :country,
             presence: true
+
+
+  validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
 
 
   # Returns true if the given token matches the digest.

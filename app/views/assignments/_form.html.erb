@@ -1,0 +1,91 @@
+<%= form_for [current_classroom, @assignment] do |f| %>
+    <% if @assignment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@assignment.errors.count, "error") %> prohibited this test from being saved:</h2>
+
+          <ul>
+            <% @assignment.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <%= f.hidden_field :section_id, value: params[:section] %>
+
+    <div class="form-group">
+      <%= f.label :title %>
+      <div class="form-fields ">
+        <%= fa_icon 'font' %>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <%= f.text_field :title, class: 'form-field' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description %>
+      <div class="form-fields ">
+        <%= fa_icon 'align-left' %>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <%= f.text_area :description, class: 'form-field' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :grade_category %>
+      <div class="form-fields ">
+        <%= fa_icon 'align-left' %>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <%= f.collection_select :grade_category_id, grade_categories, :id, :title, {}, class: 'form-field' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :start_time %>
+      <div class="form-fields ">
+        <%= fa_icon 'font' %>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <%= f.datetime_select :start_time, {order: [:day, :month, :year, :hour, :minute ], include_blank: true}, class: 'form-field date' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :end_time %>
+      <div class="form-fields ">
+        <%= fa_icon 'align-left' %>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <%= f.datetime_select :end_time, {order: [:day, :month, :year, :hour, :minute ]}, class: 'form-field date' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :assignment_type %>
+      <div class="form-fields ">
+        <%= fa_icon 'font' %>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <%= f.select :assignment_type, options_for_select([['Text', 'text'], ['File', 'file'], ['Code', 'code']]), {}, class: 'form-field' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-right">
+      <%= f.submit class: 'btn' %>
+    </div>
+<% end %>

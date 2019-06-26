@@ -1,20 +1,12 @@
-class ManageClassroomService
-  include Tokens
+class ManageClassroomService < CrudService
 
-  def initialize(classroom)
-    @classroom = classroom
-  end
-
-  def create
-    @classroom.save
-  end
-
-  def edit(classroom_params)
-    @classroom.update_attributes(classroom_params)
-  end
-
-  def delete
-    @classroom.destroy
+  def initialize(classroom = nil)
+    if classroom
+      @classroom = classroom
+      super('Classroom', classroom)
+    else
+      super('Classroom')
+    end
   end
 
   def students_count

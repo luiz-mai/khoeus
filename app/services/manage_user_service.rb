@@ -1,20 +1,30 @@
-class ManageUserService
+class ManageUserService < CrudService
   include Tokens
 
-  def initialize(user)
-    @user = user
+  def initialize(user = nil)
+    if user
+      @user = user
+      super('User', user)
+    else
+      super('User')
+    end
   end
 
-  def signup
-    @user.save ? UserMailer.account_activation(@user).deliver_now : false
+  def retrieve_by_email(email)
+    User.find_by(email: email)
   end
 
-  def edit_profile(user_params)
+  def create(user_params)
+    if (@user = super)
+      UserMailer.account_activation(@user).deliver_now
+      @user
+    else
+      false
+    end
+  end
+
+  def update(user_params)
     @user.update_attributes(user_params)
-  end
-
-  def delete
-    @user.destroy
   end
 
   def activate

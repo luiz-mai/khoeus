@@ -1,9 +1,9 @@
-<% provide(:title, "Entrar") %>
+<% provide(:title, 'Log in') %>
 
-<section class="card main-content">
+<section class="card content">
   <div class="row table-row">
     <div class="hidden-xs hidden-sm col-md-6 table-cell middle">
-      <%= image_tag 'img_form-login.png', :class => 'img-form-login' %>
+      <%= image_tag 'img_form-login.png', :class => 'form-image' %>
     </div>
     <div class="col-xs-12 col-md-6 table-cell">
       <%= form_for(:login, url: login_path) do |f| %>

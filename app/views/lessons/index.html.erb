@@ -1,0 +1,26 @@
+<% provide(:title, 'Classes') %>
+
+<section class="card content">
+  <% for lesson in @lessons %>
+      <div class="lesson">
+        <div class="dropdown lesson-options">
+          <%= link_to (fa_icon 'caret-down'), 'javascript:;', :data => { toggle: 'dropdown', target: '#' } %>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li><%= link_to 'Edit', [:edit, @classroom, lesson] %></li>
+            <li><%= link_to 'Attendances', classroom_lesson_attendance_path(@classroom, lesson) %></li>
+            <li><%= link_to 'Delete', [@classroom, lesson],
+                            data: {:confirm => 'Are you sure?'}, :method => :delete %></li>
+          </ul>
+        </div>
+        <div class="lesson-title">
+              <span class="lesson-date">
+                <%= lesson.date.strftime("%d/%m/%Y")%>
+              </span>
+          <%= lesson.title %>
+        </div>
+      </div>
+  <% end %>
+  <div class="text-right">
+  <%= link_to 'Add class', new_classroom_lesson_path(@classroom), class: 'btn' %>
+</div>
+</section>

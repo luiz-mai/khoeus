@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'the user registration', :type => :feature do
+xdescribe 'the user login', :type => :feature do
   let(:user) {create :user}
   let(:confirmed_user) {create :confirmed_user}
 
@@ -18,14 +18,11 @@ describe 'the user registration', :type => :feature do
   end
 
   context 'when user is not confirmed' do
-    before(:each) do
+    it 'logs the user in' do
       visit '/login'
       fill_in 'login_email', with: user.email
       fill_in 'login_password', with: user.password
       click_button 'Entrar'
-    end
-
-    it 'logs the user in' do
       expect(page).to have_content 'Account not activated'
     end
   end

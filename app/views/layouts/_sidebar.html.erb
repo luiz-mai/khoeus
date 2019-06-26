@@ -1,0 +1,70 @@
+<ul>
+
+  <%= link_to classrooms_path do %>
+      <li class="<%= current_class?(classrooms_path) %>">
+        <%= fa_icon 'graduation-cap' %>
+        <span>Classrooms</span>
+      </li>
+  <% end %>
+  <%= link_to root_path do %>
+      <li class="<%= current_class?('CHANGE') %>">
+        <%= fa_icon 'envelope' %>
+        <span>Messages</span>
+      </li>
+  <% end %>
+  <% if current_user && current_user.admin? %>
+      <%= link_to root_path do %>
+          <li class="<%= current_class?('CHANGE') %>">
+            <%= fa_icon 'gears' %>
+            <span>Configurations</span>
+          </li>
+      <% end %>
+      <%= link_to logs_path do %>
+          <li class="<%= current_class?(logs_path) %>">
+            <%= fa_icon 'list' %>
+            <span>Logs</span>
+          </li>
+      <% end %>
+  <% end %>
+  <% if inside_classroom? %>
+      <hr>
+      <%= link_to classroom_members_path(current_classroom) do %>
+          <li class="<%= current_class?(classroom_members_path(current_classroom)) %>">
+            <%= fa_icon 'users' %>
+            <span>Members</span>
+          </li>
+      <% end %>
+      <%= link_to classroom_attendances_path(current_classroom) do %>
+          <li class="<%= current_class?(classroom_attendances_path(current_classroom)) %>">
+            <%= fa_icon 'check-square' %>
+            <span>Attendance List</span>
+          </li>
+      <% end %>
+      <%= link_to classroom_grades_path(current_classroom) do %>
+          <li class="<%= current_class?(classroom_grades_path(current_classroom)) %>">
+            <%= fa_icon 'book' %>
+            <span>Gradebook</span>
+          </li>
+      <% end %>
+      <%= link_to classroom_lessons_path(current_classroom) do %>
+          <li class="<%= current_class?(classroom_lessons_path(current_classroom)) %>">
+            <%= fa_icon 'calendar' %>
+            <span>Calendar</span>
+          </li>
+      <% end %>
+      <% if is_teacher? %>
+          <%= link_to classroom_logs_path(current_classroom) do %>
+              <li class="<%= current_class?(classroom_logs_path(current_classroom)) %>">
+                <%= fa_icon 'list' %>
+                <span>Classroom Logs</span>
+              </li>
+          <% end %>
+          <%= link_to root_path do %>
+              <li class="<%= current_class?('CHANGE') %>">
+                <%= fa_icon 'gear' %>
+                <span>Configurations</span>
+              </li>
+          <% end %>
+      <% end %>
+  <% end %>
+</ul>

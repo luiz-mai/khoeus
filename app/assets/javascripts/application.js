@@ -14,5 +14,12 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
+//= require nested_form_fields
+//= require codemirror
+//= require codemirror/modes/clike
+//= require codemirror/modes/javascript
+//= require codemirror/addons/edit/matchbrackets
+//= require codemirror/addons/hint/show-hint
+//= require codemirror/addons/hint/javascript-hint
 //= require khoeus
 //= require_tree .

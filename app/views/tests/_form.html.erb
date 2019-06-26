@@ -1,0 +1,160 @@
+<%= form_for [current_classroom, @test] do |f| %>
+  <% if @test.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@test.errors.count, "error") %> prohibited this test from being saved:</h2>
+
+      <ul>
+      <% @test.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :section_id, value: params[:section] %>
+
+  <div class="form-group">
+    <%= f.label :title %>
+    <div class="form-fields ">
+      <%= fa_icon 'font' %>
+      <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <%= f.text_field :title, class: 'form-field' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description %>
+    <div class="form-fields ">
+      <%= fa_icon 'align-left' %>
+      <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <%= f.text_area :description, class: 'form-field' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="form-group">
+      <%= f.label :grade_category %>
+      <div class="form-fields ">
+        <%= fa_icon 'align-left' %>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <%= f.collection_select :grade_category_id, grade_categories, :id, :title, {}, class: 'form-field' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-6">
+        <div class="form-group">
+          <%= f.label :start_time %>
+          <div class="form-fields ">
+            <%= fa_icon 'font' %>
+            <div class="row">
+              <div class="col-xs-12 col-md-12">
+                <%= f.datetime_select :start_time,{order: [:day, :month, :year, :hour, :minute ], include_blank: true}, class: 'form-field date' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <div class="form-group">
+          <%= f.label :end_time %>
+          <div class="form-fields ">
+            <%= fa_icon 'align-left' %>
+            <div class="row">
+              <div class="col-xs-12 col-md-12">
+                <%= f.datetime_select :end_time, {order: [:day, :month, :year, :hour, :minute ]}, class: 'form-field date' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <hr>
+
+    <%= f.nested_fields_for :test_questions do |question_form| %>
+
+        <div class="form-group">
+          <%= question_form.label :question %>
+          <div class="form-fields ">
+            <%= fa_icon 'question' %>
+            <div class="row">
+              <div class="col-xs-12 col-md-12">
+                <%= question_form.text_area :question, class: 'form-field' %>
+                <%= question_form.remove_nested_fields_link %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-9">
+            <div class="form-group">
+              <%= question_form.label :value %>
+              <div class="form-fields ">
+                <%= fa_icon 'question' %>
+                <div class="row">
+                  <div class="col-xs-12 col-md-12">
+                    <%= question_form.number_field :value, step: :any, class: 'form-field' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-3" style="padding-top: 24px">
+            <%= question_form.radio_button :question_type, 'open-ended', class: 'question-type' %>
+            <%= question_form.label :question_type, 'Open-Ended', class: 'checkbox inline', :value => 'open-ended'  %>
+            <%= question_form.radio_button :question_type, 'objective', class: 'question-type' %>
+            <%= question_form.label :question_type, 'Objective', class: 'checkbox inline', :value => 'objective'  %>
+          </div>
+        </div>
+
+        <div class="question-alternatives hidden">
+          <%= question_form.nested_fields_for :test_alternatives do |alternatives_form| %>
+
+              <div class="form-group">
+                <%= alternatives_form.label :content %>
+                <div class="form-fields ">
+                  <%= fa_icon 'list-ol' %>
+                  <div class="row">
+                    <div class="col-xs-12 col-md-10">
+                      <%= alternatives_form.text_field :content, class: 'form-field' %>
+                    </div>
+                    <div class="col-xs-12 col-md-2">
+                      <%= alternatives_form.check_box :correct %>
+                      <%= alternatives_form.label :correct, class: 'checkbox inline' %>
+                    </div>
+                    <%= alternatives_form.remove_nested_fields_link %>
+                  </div>
+                </div>
+              </div>
+
+          <% end %>
+          <div class="text-right">
+            <%= question_form.add_nested_fields_link :test_alternatives, 'Add alternative', class: 'btn'  %>
+          </div>
+        </div>
+
+
+
+        <hr>
+
+    <% end %>
+
+
+  <div class="text-right">
+    <%= f.add_nested_fields_link :test_questions, 'Add question', class: 'btn'  %>
+    <%= f.submit class: 'btn' %>
+  </div>
+<% end %>

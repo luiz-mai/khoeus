@@ -9,18 +9,19 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = User.all
+    generate_log('viewed all', 'User')
   end
 
   # GET /users/1
   def show
+    generate_log('viewed', 'User', @user.id)
   end
 
   # GET /users/new
   def new
+    @user = User.new
     if logged_in?
       redirect_to current_user
-    else
-      @user = User.new
     end
   end
 
@@ -30,19 +31,21 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.create(user_params)
-    if ManageUserService.new(@user).signup
+    @user = ManageUserService.new.create(user_params)
+    if @user
       flash[:info] = 'Please, check your email to activate your account.'
+      generate_log('created an account', nil, nil, nil, @user.id)
       redirect_to login_path
     else
-      render :new
+      redirect_to signup_path
     end
   end
 
   # PATCH/PUT /users/1
   def update
-    if ManageUserService.new(@user).edit_profile(user_params)
+    if ManageUserService.new(@user).update(user_params)
       flash[:success] = 'Profile updated'
+      generate_log('edited his account')
       current_user.admin? ? redirect_to(users_path) : redirect_to(@user)
     else
       render :edit
@@ -51,6 +54,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
+    generate_log('deleted', 'User', @user.id)
     ManageUserService.new(@user).delete
     flash[:success] = 'User deleted'
     redirect_to users_url
@@ -58,9 +62,10 @@ class UsersController < ApplicationController
 
   # GET /activate/1
   def activate
-    @user = User.find_by(email: params[:email])
+    @user = ManageUserService.new.retrieve_by_email(params[:email].downcase)
     if @user && !@user.confirmed? && Tokens.digest_match(@user, :activation, params[:token])
       ManageUserService.new(@user).activate
+      generate_log('activated his account', nil, nil, nil, @user.id)
       session[:user_id] = @user.id
       flash[:success] = 'Account activated!'
       redirect_to @user
@@ -79,7 +84,7 @@ class UsersController < ApplicationController
 
   # POST /login
   def user_login
-    @user = User.find_by(email: params[:login][:email].downcase)
+    @user = ManageUserService.new.retrieve_by_email(params[:login][:email].downcase)
     if @user && @user.authenticate(params[:login][:password])
       if @user.confirmed?
         session[:user_id] = @user.id
@@ -92,6 +97,7 @@ class UsersController < ApplicationController
           cookies.delete(:user_id)
           cookies.delete(:remember_token)
         end
+        generate_log('logged in')
         redirect_to classrooms_path
       else
         message  = 'Account not activated. '
@@ -108,6 +114,7 @@ class UsersController < ApplicationController
   def logout
     if logged_in?
       ManageUserService.new(current_user).forget
+      generate_log('logged out')
       cookies.delete(:user_id)
       cookies.delete(:remember_token)
       session.delete(:user_id)
@@ -120,10 +127,11 @@ class UsersController < ApplicationController
   end
 
   def send_new_password
-    @user = User.find_by(email: params[:user][:email].downcase)
+    @user = ManageUserService.new.retrieve_by_email(params[:user][:email].downcase)
     if @user
       ManageUserService.new(@user).send_password_reset_email
       flash[:info] = 'Email sent with password reset instructions'
+      generate_log('requested a password reset', nil, nil, nil, @user.id)
       redirect_to login_path
     else
       flash.now[:danger] = 'Email address not found'
@@ -140,8 +148,9 @@ class UsersController < ApplicationController
       redirect_to choose_password_path
     elsif @user.update_attributes(user_params)          # Case (4)
       session[:user_id] = @user.id
+      generate_log('reseted his password', nil, nil, nil, @user.id)
       flash[:success] = 'Password has been reset.'
-      redirect_to @user
+      redirect_to classrooms_path
     else
       render :choose_password
     end
@@ -149,15 +158,15 @@ class UsersController < ApplicationController
 
   private
     def set_user
-      @user = User.find(params[:id])
+      @user = ManageUserService.new.retrieve(params[:id])
     end
 
     def set_user_by_email
-      @user = User.find_by(email: params[:email])
+      @user = ManageUserService.new.retrieve_by_email(params[:email].downcase)
     end
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :cep, :address, :number, :complement, :neighborhood, :city, :state, :country, :photo_name, :language, :timezone  )
+      params.require(:user).permit(:photo, :name, :email, :password, :password_confirmation, :cep, :address, :number, :complement, :neighborhood, :city, :state, :country, :photo_name, :language, :timezone  )
     end
 
     def check_reset_token_expiration

@@ -1,0 +1,70 @@
+<% provide(:title, @test.title) %>
+
+<section class="card content">
+  <% if answered_test?(@test.id, @student) %>
+      <%= form_for(@test, url: classroom_test_evaluate_path(@classroom, @test, @student), method: :post) do |test_form| %>
+          <% @test.test_questions.each_with_index do |question, index| %>
+              <p class="question-title">
+                <span>Question #<%= index %></span>
+                <%= question.question %>
+              </p>
+              <div class="question-response">
+                <% if question.question_type == 'objective' %>
+                    <% question.test_alternatives.each do |alternative| %>
+                        <p class="alternative <%= alternative_class(@student, question, alternative) %>">
+                          <%= alternative.content %>
+                        </p>
+                    <% end %>
+                <% else %>
+                    <p class="answer">
+                      <%= user_test_response(@student, question.id).response %>
+                    </p>
+                <% end %>
+
+
+
+                <%= test_form.fields_for question, index: question.id do |feedback_form| %>
+                    <% if question.question_type == 'open-ended' %>
+                        <div class="form-group">
+                          <%= feedback_form.label :grade, "Grade (max value: #{question.value})" %>
+                          <div class="form-fields ">
+                            <%= fa_icon 'check' %>
+                            <div class="row">
+                              <div class="col-xs-12 col-md-12">
+                                <%= feedback_form.number_field :grade, step: :any, class: 'form-field' %>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    <% end %>
+                    <div class="text-right">
+                      <a data-toggle="collapse" href="#<%= "question-#{question.id}-collapse" %>" class="write-feedback">
+                        <%= fa_icon 'chevron-down' %>
+                        Write feedback
+                      </a>
+                    </div>
+                    <div id="<%= "question-#{question.id}-collapse" %>" class="collapse">
+                      <div class="form-group">
+                        <%= feedback_form.label :feedback %>
+                        <div class="form-fields ">
+                          <%= fa_icon 'list-ol' %>
+                          <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                              <%= feedback_form.text_area :feedback, class: 'form-field' %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                <% end %>
+              </div>
+              <hr>
+          <% end %>
+          <div class="text-right">
+            <%= test_form.submit 'Evaluate', class: 'btn' %>
+          </div>
+      <% end %>
+  <% else %>
+      <p class="info">This student hasn't submitted this test :(</p>
+  <% end %>
+</section>

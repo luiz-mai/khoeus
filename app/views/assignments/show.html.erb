@@ -1,0 +1,146 @@
+<% provide(:title, @assignment.title) %>
+
+
+<section class="card content">
+  <% if is_teacher? %>
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Grade</th>
+          <th>Submitted</th>
+          <th>Evaluated</th>
+          <th class="text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for student in @classroom.subscriptions.collect(&:user) %>
+            <tr>
+              <td> <%= student.name %> </td>
+              <td> <%= assignment_grade(student, @assignment) %> </td>
+              <td> <%= submitted_assignment?(@assignment.id, student) ? 'Yes' : 'No' %> </td>
+              <td> <%= evaluated_assignment?(@assignment, student) %> </td>
+              <td> <%= link_to (fa_icon 'pencil'), classroom_assignment_evaluation_path(@classroom, @assignment, student) %> </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+  <% else %>
+      <% if submitted_assignment?(@assignment.id, current_user) && evaluated_assignment?(@assignment, current_user) %>
+          <% unless @assignment.description.blank? %>
+              <p class="assignment-description">
+                <span>DESCRIPTION</span>
+                <%= @assignment.description %>
+              </p>
+              <hr>
+          <% end %>
+          <div class="assignment-submission">
+            <% if @assignment.assignment_type == 'text' %>
+                <p class="text-submission">
+                  <span>YOUR SUBMISSION</span>
+                  <%= student_submission(current_user).content %>
+                </p>
+            <% elsif @assignment.assignment_type == 'file' %>
+                <p><%= link_to "Download submission", student_submission(current_user).assignment_file.url(:original, false)  %></p>
+            <% else %>
+              <textarea id="assignment_evaluation">
+                  <%= student_code(current_user) %>
+              </textarea>
+                <div class="codeline-feedbacks">
+                  <% student_submission(current_user).code_lines.each do |line| %>
+                      <div class="codeline-feedback">
+                        <% if line_feedback(line) %>
+                            <a href="#" data-toggle="popover" data-placement="left" data-content="<%= line_feedback(line) %>">
+                              <%= fa_icon 'exclamation' %>
+                            </a>
+                        <% end %>
+                      </div>
+                  <% end %>
+                </div>
+                <hr>
+            <% end %>
+          </div>
+          <div class="assignment-feedback">
+            <p class="feedback-title">Feedback</p>
+            <p class="grade"><span>Grade:</span> <%= student_submission(current_user).grade %></p>
+            <p class="feedback"><%= submission_feedback(current_user)  %></p>
+          </div>
+
+      <% elsif @assignment.end_time.past? %>
+          <p class="info">This assignment has reached its deadline.</p>
+      <% elsif @assignment.start_time && !@assignment.start_time.past? %>
+          <p class="info">This assignment hasn't started yet.</p>
+      <% else %>
+          <% if !submitted_assignment?(@assignment.id) %>
+              <%= form_for(@assignment, multipart: true, url: classroom_assignment_submit_path(@classroom, @assignment), method: :post) do |assignment_form| %>
+                  <%= content_tag(:p, @assignment.description, class: 'assignment-description') if !@assignment.description.empty? %>
+                  <p class="assignment-deadline"><span>Deadline:</span> <%= @assignment.end_time.strftime('%d/%m/%Y %H:%M:%S') %></p>
+                  <% if @assignment.assignment_type == 'code' %>
+                      <div class="form-group">
+                        <%= assignment_form.label :code_language %>
+                        <div class="form-fields ">
+                          <%= fa_icon 'font' %>
+                          <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                              <%= assignment_form.select :code_language, options_for_select([['C','text/x-csrc']]), {}, class: 'form-field' %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <%= assignment_form.label :code %>
+                        <div class="form-fields ">
+                          <%= fa_icon 'align-left' %>
+                          <div class="row">
+                            <%= assignment_form.text_area :code, class: 'form-field' %>
+                          </div>
+                        </div>
+                      </div>
+                  <% elsif @assignment.assignment_type == 'file' %>
+                      <div class="form-group">
+                        <%= assignment_form.label :assignment_file %>
+                        <div class="form-fields ">
+                          <%= fa_icon 'file' %>
+                          <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                              <%= assignment_form.file_field :assignment_file, class: 'form-field' %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  <% else %>
+                      <div class="form-group">
+                        <%= assignment_form.label :content %>
+                        <div class="form-fields ">
+                          <%= fa_icon 'align-left' %>
+                          <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                              <%= assignment_form.text_area :content, class: 'form-field' %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  <% end %>
+
+                  <% if @assignment.assignment_type == 'code' %>
+                      <div class="text-right">
+                        <%= image_tag 'loading', class: 'loading hidden' %>
+                        <%= link_to 'Run', '#', class: 'btn run-code', name: 'run' %>
+                        <%= assignment_form.submit 'Submit Assignment', class: 'btn', name: 'submit' %>
+                      </div>
+                      <div class="run-result hidden">
+                        <code></code>
+                      </div>
+                  <% else %>
+                      <div class="text-right">
+                        <%= assignment_form.submit 'Submit Assignment', class: 'btn' %>
+                      </div>
+                  <% end %>
+              <% end %>
+          <% else %>
+              <p class="info">You already submitted this assignment! Wait until a teacher gives you a feedback :)</p>
+          <% end %>
+      <% end %>
+  <% end %>
+</section>

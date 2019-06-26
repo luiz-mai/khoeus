@@ -1,14 +1,18 @@
 @import "variables";
-@import "fixes";
 @import "custom";
 @import "font-awesome";
+@import "codemirror";
+@import "codemirror/themes/seti";
+@import "codemirror/addons/hint/show-hint";
 
 @import "components/buttons";
 @import "components/card";
+@import "components/radio";
 @import "components/checkbox";
 @import "components/forms";
 @import "components/page-title";
 @import "components/sidebar";
+@import "components/form-image";
 
 @import "pages/classrooms";
 @import "pages/default";
@@ -16,3 +20,11 @@
 @import "pages/sessions";
 @import "pages/pages";
 @import "pages/users";
+@import "pages/surveys";
+@import "pages/tests";
+@import "pages/assignments";
+@import "pages/external_activities";
+@import "pages/lessons";
+
+
+@import "fixes";

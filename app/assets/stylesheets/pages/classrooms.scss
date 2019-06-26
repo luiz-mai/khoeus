@@ -1,40 +1,133 @@
 .classrooms-index{
-  .classroom{
-    padding: 20px 20px 25px;
-    position: relative;
-    a:hover{
-      text-decoration: none;
-      color: inherit;
-    }
-    .classroom-title{
-      font-family: "Raleway", sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      color: $main-darkpurple;
-      margin: 0;
-    }
-    .students{
-      font-family: "Raleway", sans-serif;
-      text-transform: uppercase;
-      font-size: 12px;
-      font-weight: 500;
-      color: $main-darkpurple;
-      text-align: center;
-      p{
-        margin: 0;
-        line-height: 1;
-        &.number{
-          font-size: 50px;
-          font-weight: 800;
-          margin-bottom: 5px;
+  .classroom-wrapper{
+    a{
+      .classroom{
+        padding: 20px 20px 25px;
+        position: relative;
+        .classroom-title{
+          font-family: "Raleway", sans-serif;
+          font-size: 15px;
+          font-weight: 600;
+          color: $main-darkpurple;
+          margin: 0;
         }
+        .students{
+          font-family: "Raleway", sans-serif;
+          text-transform: uppercase;
+          font-size: 12px;
+          font-weight: 500;
+          color: $main-darkpurple;
+          text-align: center;
+          p{
+            margin: 0;
+            line-height: 1;
+            &.number{
+              font-size: 50px;
+              font-weight: 800;
+              margin-bottom: 5px;
+            }
+          }
+        }
+        .dropdown{
+          position: absolute;
+          top: 10px;
+          right: 15px;
+          cursor: pointer;
+        }
+      }
+      &:active, &:focus, &:hover{
+        text-decoration: none;
       }
     }
     .dropdown{
       position: absolute;
-      top: 10px;
-      right: 15px;
+      right: 25px;
+      top: 35px;
       cursor: pointer;
+    }
+    &:hover{
+      text-decoration: none;
+      color: inherit;
+      a{
+        text-decoration: none;
+        .classroom{
+          background-color: $main-purple;
+          p, h2{
+            color: $white;
+          }
+        }
+      }
+      i{
+        color: $white;
+      }
+    }
+  }
+}
+
+.classrooms-show{
+  .section-options{
+    position: absolute;
+    right: 50px;
+    a{
+      color: $gray-light;
+    }
+  }
+  .section-title{
+    margin-bottom: 20px;
+    h3{
+      font-family: 'Raleway', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: $main-purple;
+    }
+    .section-description{
+      font-family: 'Raleway', sans-serif;
+      font-weight: 500;
+      color: $gray-light;
+    }
+  }
+  .item{
+    position: relative;
+    .item-options{
+      position: absolute;
+      right: 50px;
+      a{
+        color: $gray-light;
+      }
+    }
+    .item-title{
+      margin-bottom: 10px;
+      .item-type{
+        border-bottom-left-radius: 1000px;
+        border-top-left-radius: 1000px;
+        background-color: $main-purple;
+        padding: 4px 15px;
+        min-width: 130px;
+        display: inline-block;
+        color: white;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-family: 'Raleway', sans-serif;
+
+        &.item-link{background-color: #9b59b6;}
+        &.item-document{background-color: #f1c40f;}
+        &.item-survey{background-color: #1abc9c;}
+        &.item-test{background-color: #2ecc71;}
+        &.item-assignment{background-color: #3498db;}
+        &.item-externalactivity{background-color: #e67e22;}
+      }
+      a{
+        display: inline-block;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 600;
+        color: $gray;
+        padding-left: 10px;
+      }
+    }
+    .item-description{
+      padding-left: 145px;
+      color: $gray-light;
     }
   }
 }

@@ -1,0 +1,26 @@
+<% provide(:title, 'Gradebook') %>
+
+
+<section class="card content">
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+    <th>Activity</th>
+    <th>Type</th>
+    <th>Grade</th>
+    </thead>
+    <tbody>
+    <% classroom_activities.each_with_index do |activity, index| %>
+        <tr>
+          <% if index == classroom_activities.size - 1 %>
+              <td colspan="2"><strong><%= activity[:title] %></strong></td>
+          <% else %>
+              <td><%= activity[:title] %></td>
+              <td><%= activity[:type] %></td>
+          <% end %>
+          <td><%= activity[:grade] %></td>
+        </tr>
+
+    <% end %>
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,142 @@
+.assignments-show{
+  .assignment-description, .text-submission{
+    font-family: 'Raleway', sans-serif;
+    color: $gray-light;
+    font-weight: 500;
+    span{
+      background-color: #543c75;
+      color: #ffffff;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 15px;
+      border-radius: 1000px;
+      margin-right: 5px;
+    }
+  }
+  .assignment-description{
+    font-size: 18px;
+  }
+  .assignment-deadline{
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    color: $gray-light;
+    font-weight: 500;
+    margin-bottom: 30px;
+    span{
+      font-weight: 700;
+      color: $main-purple;
+      text-transform: uppercase;
+    }
+  }
+  .assignment-feedback{
+    border: solid 1px $main-purple;
+    .feedback-title{
+      background-color: $main-purple;
+      color: $white;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 5px;
+      font-size: 16px;
+    }
+    .grade{
+      font-family: 'Raleway', sans-serif;
+      color: $gray-light;
+      font-weight: 500;
+      margin-left: 10px;
+      span{
+        background-color: #543c75;
+        color: #ffffff;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 3px 15px;
+        border-radius: 1000px;
+        margin-right: 5px;
+      }
+    }
+    .feedback{
+      font-family: 'Raleway', sans-serif;
+      color: $gray-light;
+      font-weight: 500;
+      margin-left: 10px;
+    }
+  }
+  .assignment-submission{
+    position: relative;
+    .codeline-feedbacks{
+      position: absolute;
+      top: 4px;
+      width: 100%;
+      right: 5px;
+      text-align: right;
+      z-index: 10;
+      .codeline-feedback {
+        height: 20px;
+        i {
+          color: $white;
+        }
+        .popover{
+          color: $black;
+        }
+      }
+    }
+  }
+  .codeline-feedback{
+    color: $white;
+  }
+  .run-result {
+    margin-top: 30px;
+    background-color: $gray-dark;
+    padding: 10px;
+    code{
+      color: $white;
+      background-color: transparent;
+    }
+  }
+  .info{
+    font-family: 'Raleway', sans-serif;
+    color: $gray-light;
+    font-weight: 500;
+  }
+}
+
+.assignments-evaluation{
+  .assignment-submission{
+    position: relative;
+    .add-feedback-wrapper{
+      position: absolute;
+      right: 5px;
+      top: 4px;
+      z-index: 10;
+      width: 100%;
+      text-align: right;
+    }
+  }
+  .popover{
+    width: 100%;
+    max-width: 100%;
+    color: $black;
+    .arrow{
+      left: 30px !important;
+    }
+  }
+  .CodeMirror{
+    margin-bottom: 30px;
+    .CodeMirror-line{
+      cursor: pointer;
+    }
+  }
+  .write-feedback{
+    font-family: 'Raleway', sans-serif;
+    color: $gray-light;
+    font-weight: 500;
+    &:hover, &:focus{
+      text-decoration: none;
+      color: $gray-light;
+    }
+  }
+  .info{
+    font-family: 'Raleway', sans-serif;
+    color: $gray-light;
+    font-weight: 500;
+  }
+}

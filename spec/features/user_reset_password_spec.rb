@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'the password reset', :type => :feature do
+xdescribe 'the password reset', :type => :feature do
   let(:user) {create :user}
   let(:confirmed_user) {create :confirmed_user}
 

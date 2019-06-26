@@ -1,0 +1,81 @@
+<% provide(:title, @assignment.title) %>
+
+<section class="card content">
+  <% if submitted_assignment?(@assignment.id, @student) %>
+      <%= form_for(student_submission(@student), url: classroom_assignment_evaluate_path(@classroom, @assignment, @student), method: :post) do |submission_form| %>
+
+          <% unless @assignment.description.blank? %>
+              <p class="assignment-description"><%= @assignment.description %></p>
+          <% end %>
+          <div class="assignment-submission">
+            <% if @assignment.assignment_type == 'file' %>
+                <%= link_to "Download submission", student_submission(@student).assignment_file.url(:original, false)  %>
+            <% elsif @assignment.assignment_type == 'code' %>
+                <textarea id="assignment_evaluation">
+                  <%= student_code(@student) %>
+                </textarea>
+                <div class="add-feedback-wrapper">
+                  <% student_submission(@student).code_lines.each_with_index do |code_line, index| %>
+                      <%= submission_form.fields_for code_line, index: code_line.id do |line_feedback_form| %>
+                            <%= line_feedback_form.text_area :feedback, class: 'hidden' %>
+                          <div id="popover-<%= code_line.id %>-content" class="hidden">
+                            <div class="form-group">
+                              <%= line_feedback_form.label :feedback %>
+                              <div class="form-fields ">
+                                <%= fa_icon 'check' %>
+                                <div class="row">
+                                  <div class="col-xs-12 col-md-12">
+                                    <textarea id="textarea-<%= index + 1 %>" class="form-field"></textarea>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      <% end %>
+                  <% end %>
+                </div>
+            <% else %>
+                <p class="text-submission"><%= student_submission(@student).content %></p>
+            <% end %>
+
+            <div class="form-group">
+              <%= submission_form.label :grade, "Grade (max value: 100)" %>
+              <div class="form-fields ">
+                <%= fa_icon 'check' %>
+                <div class="row">
+                  <div class="col-xs-12 col-md-12">
+                    <%= submission_form.number_field :grade, step: :any, class: 'form-field' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-right">
+              <a data-toggle="collapse" href="#<%= "feedback-collapse" %>" class="write-feedback">
+                <%= fa_icon 'chevron-down' %>
+                Write feedback
+              </a>
+            </div>
+            <div id="<%= "feedback-collapse" %>" class="collapse">
+              <div class="form-group">
+                <%= submission_form.label :feedback %>
+                <div class="form-fields ">
+                  <%= fa_icon 'list-ol' %>
+                  <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                      <%= submission_form.text_area :feedback, class: 'form-field' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+          </div>
+          <div class="text-right">
+            <%= submission_form.submit 'Evaluate', class: 'btn' %>
+          </div>
+      <% end %>
+  <% else %>
+      <p class="info">This student hasn't submitted this assignment :(</p>
+  <% end %>
+</section>

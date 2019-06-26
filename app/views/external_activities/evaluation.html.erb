@@ -1,0 +1,45 @@
+<% provide(:title, @external_activity.title) %>
+
+<section class="card content">
+      <%= form_for(@external_activity, url: classroom_external_activity_evaluate_path(@classroom, @external_activity, @student), method: :post) do |activity_form| %>
+
+          <% unless @external_activity.description.blank? %>
+              <p class="external_activity-description"><%= @external_activity.description %></p>
+          <% end %>
+            <div class="form-group">
+              <%= activity_form.label :grade, "Grade (max value: 100)" %>
+              <div class="form-fields ">
+                <%= fa_icon 'check' %>
+                <div class="row">
+                  <div class="col-xs-12 col-md-12">
+                    <%= activity_form.number_field :grade, step: :any, class: 'form-field' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-right">
+              <a data-toggle="collapse" href="#<%= "feedback-collapse" %>" class="write-feedback">
+                <%= fa_icon 'chevron-down' %>
+                Write feedback
+              </a>
+            </div>
+            <div id="<%= "feedback-collapse" %>" class="collapse">
+              <div class="form-group">
+                <%= activity_form.label :feedback %>
+                <div class="form-fields ">
+                  <%= fa_icon 'list-ol' %>
+                  <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                      <%= activity_form.text_area :feedback, class: 'form-field' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+          <div class="text-right">
+            <%= activity_form.submit 'Evaluate', class: 'btn' %>
+          </div>
+      <% end %>
+</section>

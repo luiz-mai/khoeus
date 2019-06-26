@@ -10,7 +10,7 @@
         <% if logged_in? %>
           <div class="dropdown">
             <div data-target="#" data-toggle="dropdown" class="dropdown-toggle">
-              <%= gravatar_for current_user, size: 50 %>
+              <%= image_tag current_user.photo.url %>
               <%= content_tag(:span, current_user.name )%>
               <%= fa_icon 'caret-down' %>
             </div>

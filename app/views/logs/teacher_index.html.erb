@@ -1,0 +1,20 @@
+<% provide(:title, 'Classroom Logs') %>
+
+<section class="card content">
+  <table class="table table-striped table-hover table-bordered">
+    <tbody>
+    <% for log in @logs %>
+        <tr>
+          <td>
+            <%= "#{ User.find(log.user).name } has #{log.action}"%>
+            <% if log.subject_id %>
+                <%= link_to subject_name(log), subject_object(log) %>
+            <% elsif log.subject %>
+                <%= log.subject %>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</section>
